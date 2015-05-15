@@ -81,7 +81,7 @@ for(var i=0; i<sampleset.closedhh.length; i++) {
 }
 
 
-var RADIUS = 3;
+var RADIUS = 8;
 
 
 window.onload = function(){

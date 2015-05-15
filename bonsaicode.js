@@ -11,14 +11,14 @@
      
 
     for(var i=0; i<sampleListBonsai.length; i++){ // go through kick/snare/ohh/chh list
-      placeX = sampleListBonsai[i].coordX / stage.options.width * 100; 
-      placeY = sampleListBonsai[i].coordY / stage.options.height * 100;
+      placeX = sampleListBonsai[i].coordX * stage.options.width; 
+      placeY = sampleListBonsai[i].coordY * stage.options.height;
       currentName = sampleListBonsai[i].sName;
       
       sampleListBonsai[i].circle  = new Circle(placeX,placeY, radius);
       sampleListBonsai[i].circle.sParent = sampleListBonsai[i]; // to access the circles parent sample
       sampleListBonsai[i].circle.fill('gray').addTo(stage)
-      .on('click', function(e){
+      .on('click', function(e){ 
         if(this.sParent.sName!=nowSelected.sParent.sName) { // if clicked sample is not already selected, select it (and start playing it in rhythm)
           prevSelected = nowSelected;
           nowSelected= this;
