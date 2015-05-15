@@ -9,11 +9,11 @@ var soundClasses;
 
 var loadAll = function(){
 	loadPlayer();
-loadMidi("Maschine");
-midiMap[0] ="Kick"
-midiMap[1]="Snare"
-midiMap[2]="ClosedHH"
-midiMap[3]="OpenHH"
+	loadMidi("Maschine");
+	midiMap[0] ="Kick"
+	midiMap[1]="Snare"
+	midiMap[2]="ClosedHH"
+	midiMap[3]="OpenHH"
 }
 
 
@@ -38,7 +38,7 @@ var loadPlayer = function(){
 
 	explorationPlayer = new soundManager.createSound({
 		   id: "explorationPlayer",
-		   url: "samples/Kick/"+ audioFiles["Kick"][0],
+		   url: "",
 		   volume: 70,
 		   multiShot: false,
 		   autoLoad: false,
@@ -48,8 +48,10 @@ var loadPlayer = function(){
 
 
 var playType=function(type,vel){
+	choke(type)
 	sounds[type].play();
 	sounds[type].volume = vel*100.0/127;
+
 }
 
 var playOne = function(type,fname){
@@ -60,15 +62,20 @@ var playOne = function(type,fname){
 
 var setType=function(type,name){
 
-	sounds[type].load("samples/" + type + "/"+ name)
+	sounds[type].url = "samples/" + type + "/"+ name;
+	sounds[type].load();
 }
 
 
-var chokeHH = function(){
-	sounds["ClosedHH"].pause();
-	sounds["OpenHH"].pause();
+var choke = function(type){
+	if(type in chokeGroup){
+		for(t in chokeGroup){
+			sounds[t].stop();
+		}
+	}
 }	
 
+var chokeGroup = ["OpenHH","ClosedHH"]
 
 
 
