@@ -15,6 +15,7 @@ time, mark, audio, video {
   border:0;
   outline:0;
   font-size:100%;
+  cursor: default;
   vertical-align:baseline;
   background:transparent;
 }
@@ -26,15 +27,17 @@ html, body{
 
 body{
 	color: #aaa;
-  font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  	font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
 }
 
 .wrapper{
 	display: table;
+	table-layout: fixed;
 	padding: 0;
 	width: 100%;
 	height: 100%;
 	position: absolute;
+	background-color: #dbdbea;
 }
 
 .row {
@@ -47,11 +50,16 @@ body{
 
 .pane {
 	display: table-cell;
-	width: 500px;
+	width: 490px;
 	margin: 0;
 	font-size: 30px;
 	background-color: #000;
+}
 
+.separator {
+	display: table-cell;
+	width: 5px;
+	background-color: #dbdbea;
 }
 
 .panetitle{
@@ -83,4 +91,32 @@ body{
 		margin-top: 10px;
 		font-size: 50%;
 	}
+}
+
+#HorizLine {
+	left: 0px;
+	position: relative;
+	margin-bottom: 0;
+	border-bottom: 5px solid #dbdbea;
+	width: 100%;
+	height: 1px;
+	overflow: hidden;
+}
+
+#PlayBtn {
+	position: absolute;
+	text-align: center;
+	background-color: red;
+	width: 120px;
+	height: 120px;
+	top:50%;
+	margin-top: -60px;
+	left: 50%;
+	margin-left: -60px;
+	border-radius: 50%;
+}
+
+#PlayBtn p {
+	margin-top: 40px;
+	font-size: 30px;
 }

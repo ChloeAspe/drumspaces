@@ -4,15 +4,15 @@
      
      var placeX, placeY; // will contain the calcuated location of currently drawn sample
      var currentName = ''; // ---------------name ---------------------------------------
-     var nameDisplay = new Text('').attr({x: stage.options.width/2, textAlign: 'center', textFillColor: 'black', fontSize: '25', fontFamily: 'helvetica'});
+     var nameDisplay = new Text('').attr({x: stage.options.width/2, textAlign: 'center', textFillColor: 'black', fontSize: '20', fontFamily: 'helvetica'});
      var prevSelected = new Object();
      var nowSelected= new Object();
      nowSelected = {sParent: {sName: ""}, mute: false}; // initially no sample selected
      
 
     for(var i=0; i<sampleListBonsai.length; i++){ // go through kick/snare/ohh/chh list
-      placeX = sampleListBonsai[i].coordX * stage.options.width; 
-      placeY = sampleListBonsai[i].coordY * stage.options.height;
+      placeX = sampleListBonsai[i].coordX * (stage.options.width-12)+6; 
+      placeY = sampleListBonsai[i].coordY * (stage.options.height-50)+40;
       currentName = sampleListBonsai[i].sName;
       
       sampleListBonsai[i].circle  = new Circle(placeX,placeY, radius);
@@ -35,12 +35,13 @@
           // STOP PLAY IN RHYTHM
           stage.sendMessage('rhythmStop', {sName: this.sParent.sName});
         }
-        nameDisplay.attr('text', nowSelected.sParent.sName); // update displayed name
+        nameDisplay.attr('text', nowSelected.sParent.shortName); // update displayed name
       })
       .on('mouseover',function(e){
         if(nowSelected.sParent.sName=="") { // mouseover playback only works if theres no sample selected in the current drumspace
           this.fill('white');
-          nameDisplay.attr('text', this.sParent.sName); // update displayed name
+          nameDisplay.attr('text', this.sParent.shortName); // update displayed name
+          console.log(this.sParent.shortName);
           // PLAY JUST ONCE
           stage.sendMessage('soloPlay', {sName: this.sParent.sName});
         }

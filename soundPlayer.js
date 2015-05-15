@@ -48,7 +48,7 @@ var loadPlayer = function(){
 
 
 var playType=function(type,vel){
-	choke(type)
+	choke(type);
 	sounds[type].play();
 	sounds[type].volume = vel*100.0/127;
 
@@ -75,7 +75,7 @@ var choke = function(type){
 	}
 }	
 
-var chokeGroup = ["OpenHH","ClosedHH"]
+var chokeGroup = ["OpenHH","ClosedHH"];
 
 
 
@@ -99,7 +99,7 @@ var midi = MIDI.Player;
 var MyPlayOne = function(note){
 	if(isPlaying ){
 		playType(midiMap[note.audioType],note.velocity);
-		var idx = (note.idx + 1)% noteOn[note.audioType].length
+		var idx = (note.idx + 1)% noteOn[note.audioType].length;
 		var nextEventDelay = noteOn[note.audioType][idx].deltaTime*timeFactor; 
 		
 		if(idx!=0){
@@ -183,7 +183,7 @@ var loadMidi = function(midiName){
 		console.log("loopLength",loopLength);
 		lastSilence = loopLength - runningCount[lastNoteType]  ;
 		console.log("lastSilence",lastSilence);
-		console.log(noteOn)
+		console.log(noteOn);
 		
 			
 	})	
@@ -203,5 +203,5 @@ else if (window.attachEvent) // Microsoft
   window.attachEvent('onload', loadAll);
 }
 else{
-	console.log("browser not supporting on load event listener")
+	console.log("browser not supporting on load event listener");
 }

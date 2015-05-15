@@ -6,6 +6,7 @@ function sampleObject(argName, argX, argY, argType) {
 	this.coordX = argX;
 	this.coordY = argY;
 	this.sType = argType;
+  this.shortName = argName.replace(/.wav/, "").replace(/Kick|Snare|OpenHH|ClosedHH/, "");
 }
 
 //useless
