@@ -67,6 +67,7 @@ body{
 	height: auto;
 	text-align: center;
 	font-size: 100%;
+	color: #fff;
 }
 
 .canvas-container{
@@ -105,8 +106,6 @@ body{
 
 #PlayBtn {
 	position: absolute;
-	text-align: center;
-	background-color: red;
 	width: 120px;
 	height: 120px;
 	top:50%;
@@ -114,9 +113,97 @@ body{
 	left: 50%;
 	margin-left: -60px;
 	border-radius: 50%;
+	-webkit-box-shadow: 5px 5px 40px 30px rgba(0,0,0,0.87);
+	-moz-box-shadow: 5px 5px 40px 30px rgba(0,0,0,0.87);
+	box-shadow: 5px 5px 40px 30px rgba(0,0,0,0.87);
 }
 
 #PlayBtn p {
-	margin-top: 40px;
+	margin-top: 25px;
+	font-size: 24px;
+}
+
+.task-btns {
+	position: absolute;
+	height: auto;
+	right:0;
+	top: 0;
+	font-size: 0px;
+	vertical-align: middle;
+	margin: 0px;
+	padding: 0px;
+}
+
+#done-btn {
 	font-size: 30px;
+	padding: 5px 10px;
+	display: inline-block;
+}
+
+#pause-btn {
+	font-size: 30px;
+	padding: 5px 10px;
+	display: inline-block;
+	background-color: #28C9A1;
+}
+
+#pause-btn:hover {
+	background-color: #1F9C7C;
+}
+
+.btn {
+	background-color: #FF6347;
+	color: #fff;
+	text-align: center;
+}
+
+.btn:hover {
+	background-color: #F74728;
+}
+
+.btn:active {
+	background-color: #DB381A;
+}
+
+#topbar {
+	position: relative;
+	padding-top: 5px;
+	height: 40px;
+	background-color: #d3d3d3;
+	background: #d3d3d3; /* Old browsers */
+	background: -moz-linear-gradient(top, #d3d3d3 0%, #dbdbea 100%); /* FF3.6+ */
+	background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#d3d3d3), color-stop(100%,#dbdbea)); /* Chrome,Safari4+ */
+	background: -webkit-linear-gradient(top, #d3d3d3 0%,#dbdbea 100%); /* Chrome10+,Safari5.1+ */
+	background: -o-linear-gradient(top, #d3d3d3 0%,#dbdbea 100%); /* Opera 11.10+ */
+	background: -ms-linear-gradient(top, #d3d3d3 0%,#dbdbea 100%); /* IE10+ */
+	background: linear-gradient(to bottom, #d3d3d3 0%,#dbdbea 100%); /* W3C */
+	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#D3D3D3', endColorstr='#dbdbea',GradientType=0 ); /* IE6-9 */
+}
+
+#timeline {
+	height: 10px;
+	margin-right: 330px;
+	margin-left: 10px;
+	position: relative;
+	background: #555;
+	-moz-border-radius: 25px;
+	-webkit-border-radius: 25px;
+	border-radius: 25px;
+	padding: 10px;
+	box-shadow: inset 0 -1px 1px rgba(255,255,255,0.3);
+}
+
+#timeline > span  {
+display: block;
+  height: 100%;
+  border-top-right-radius: 8px;
+  border-bottom-right-radius: 8px;
+  border-top-left-radius: 20px;
+  border-bottom-left-radius: 20px;
+  background-color: #28C9A1;
+  box-shadow: 
+    inset 0 2px 9px  rgba(255,255,255,0.3),
+    inset 0 -2px 6px rgba(0,0,0,0.4);
+  position: relative;
+  overflow: hidden;
 }

@@ -135,6 +135,65 @@ window.onload = function(){
     });
   });
 
+$("#PlayBtn").click(function() {
+  if($(this).find("p").text() == "PLAY RHYTHM") {
+    $(this).find("p").text("STOP RHYTHM");
+  }else{
+    $(this).find("p").text("PLAY RHYTHM");
+  }
+});
+
+
+//TASK TIMING
+
+  // TASK CHRONOMETER
+  var time=0;
+  var pause = false;
+  var timeWidth=0;
+  var timelineWidth = $("#timeline").css("width");
+  var proportion = parseInt(timelineWidth)/300;
+  function updateTimeLine() {
+    if(time>=280) {
+      $("#timeline > span").css("background-color", "tomato");
+      if(time==300){
+      //SAVE SET AND GO TO NEXT TASK
+      }
+    }
+    timeWidth = time *proportion;
+    $("#timeline > span").css("width", timeWidth);
+    console.log(timeWidth);
+  }
+  function count() {
+    if(pause!=true){
+      if(time<300){
+        time=time+10;
+        updateTimeLine();
+      } else {
+        clearInterval(interval);
+      }
+    }
+  }
+  var interval=setInterval(count, 10000);
+
+  //PAUSE TIMER-- in case of whatever problem during the experiment
+  $("#pause-btn").click(function() {
+    pause = true;
+    console.log("timer pause");
+    alert("Click OK when ready");
+    pause = false;
+    console.log("timer resume");
+  })
+
+  //DONE
+  $("#done-btn").click(function() {
+    var done= confirm("Sure?");
+    if(done==true){
+      //SAVE SET AND GO TO NEXT TASK
+    }
+    //else do nothing and continue current task
+  })
+
+
 } // end window onload
 
 
