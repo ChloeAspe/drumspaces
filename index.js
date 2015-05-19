@@ -87,8 +87,10 @@ window.onload = function(){
     }).on('message:soloPlay',function(data) {
       playOne("Kick",data.sName); 
     }).on('message:rhythmMute',function(data) {
+      setMuted("Kick",true);
       // console.log("rhyth mute : "+ data.sName);
     }).on('message:rhythmUnmute',function(data) {
+      setMuted("Kick",false);
       // console.log("rhyth unmute : "+ data.sName);
     // }).on('message:rhythmStop',function(data) {
       // console.log("rhythm stop : "+ data.sName);
@@ -102,8 +104,10 @@ window.onload = function(){
     }).on('message:soloPlay',function(data) {
       playOne("Snare",data.sName); 
     }).on('message:rhythmMute',function(data) {
+      setMuted("Snare",true);
       // console.log("rhyth mute : "+ data.sName);
     }).on('message:rhythmUnmute',function(data) {
+      setMuted("Snare",false);
       // console.log("rhyth unmute : "+ data.sName);
     // }).on('message:rhythmStop',function(data) {
       // console.log("rhythm stop : "+ data.sName);
@@ -117,8 +121,10 @@ window.onload = function(){
     }).on('message:soloPlay',function(data) {
       playOne("OpenHH",data.sName); 
     }).on('message:rhythmMute',function(data) {
+      setMuted("OpenHH",true);
       // console.log("rhyth mute : "+ data.sName);
     }).on('message:rhythmUnmute',function(data) {
+      setMuted("OpenHH",false);
       // console.log("rhyth unmute : "+ data.sName);
     // }).on('message:rhythmStop',function(data) {
       // console.log("rhythm stop : "+ data.sName);
@@ -132,8 +138,10 @@ window.onload = function(){
     }).on('message:soloPlay',function(data) {
       playOne("ClosedHH",data.sName); 
     }).on('message:rhythmMute',function(data) {
+      setMuted("ClosedHH",true);
       // console.log("rhyth mute : "+ data.sName);
     }).on('message:rhythmUnmute',function(data) {
+      setMuted("ClosedHH",false);
       // console.log("rhyth unmute : "+ data.sName);
     // }).on('message:rhythmStop',function(data) {
       // console.log("rhythm stop : "+ data.sName);

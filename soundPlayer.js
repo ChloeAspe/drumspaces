@@ -15,11 +15,20 @@ var loadAll = function(){
 	loadPlayer();
 	loadMidi("Maschine");
 	midiMap = new Array();
-	midiMap[0] ="Kick"
+	midiMap[0]="Kick"
 	midiMap[1]="Snare"
 	midiMap[2]="ClosedHH"
 	midiMap[3]="OpenHH"
 	console.log(noteOn)
+
+	window.addEventListener("keypress", function(e){
+		if(e.keyCode == 32){toggleMidiPlayBack()};
+	});
+
+	MutedGroup["Kick"] = false;
+	MutedGroup["Snare"] = false;
+	MutedGroup["ClosedHH"] = false;
+	MutedGroup["OpenHH"] = false;
 }
 
 
@@ -33,7 +42,7 @@ var loadPlayer = function(){
 		soundClasses.push(type);
 		sounds[type] = new soundManager.createSound({
 		   id: type,
-		   url: "samples/" + type + "/"+ audioFiles[type][0],
+		   url: "",//"samples/" + type + "/"+ audioFiles[type][0],
 		   volume: 70,
 		   multiShot: false,
 		   autoLoad: true,
@@ -54,10 +63,11 @@ var loadPlayer = function(){
 
 
 var playType=function(type,vel){
-	
+	if(MutedGroup[type] == false){
 	choke(type);
 	sounds[type].play();
 	sounds[type].volume = vel*100.0/127;
+}
 
 }
 
@@ -70,17 +80,22 @@ var playOne = function(type,fname){
 var setMidiMap = function(type,name){
 
 	sounds[type].url = "samples/" + type + "/"+ name;
-	sounds[type].load();
+	if(name!="")sounds[type].load();
 }
 
 
 var choke = function(type){
-	if(type in chokeGroup){
-		for(t in chokeGroup){
-			 sounds[t].stop();
-		}
+	
+	if($.inArray(type, chokeGroup)){
+		chokeGroup.map(function(t){
+			sounds[t].stop();
+		})
 	}
 }	
+
+var setMuted = function(type,b){
+MutedGroup[type] = b;
+}
 
 var chokeGroup = ["OpenHH","ClosedHH"];
 
@@ -95,8 +110,12 @@ var timeFactor;
 var noteOn;
 var noteOff;
 var bpm;
+var isPlaying = false;
 
 var midiMap ;
+
+var timeOuts = new Array();
+var MutedGroup = {};
 
 
 
@@ -113,15 +132,15 @@ var MyPlayOne = function(note){
 		if(idx!=0){
 			// anonymous function to ensure callback of pointed variable
 
-			setTimeout((function(n){return function(){MyPlayOne(n);}})
-					(noteOn[note.audioType][idx]),nextEventDelay);
+			timeOuts.push(setTimeout((function(n){return function(){MyPlayOne(n);}})
+					(noteOn[note.audioType][idx]),nextEventDelay));
 		
 		}
 		else if(idx == 0 && note.audioType == lastNoteType){
 			
 			nextEventDelay= lastSilence*timeFactor;
 			
-			setTimeout(StartMidi,nextEventDelay);
+			timeOuts.push(setTimeout(StartMidi,nextEventDelay));
 
 		}
 	}
@@ -131,13 +150,19 @@ var MyPlayOne = function(note){
 var StartMidi = function(){
 	isPlaying = true;
 	//
+
+	timeOuts.map(function(t){clearTimeout(t);});
+	timeOuts = new Array();
 	for(var i = 0 ; i < noteOn.length ; i++){
 		if(noteOn[i][0]){
 			var firstNote = noteOn[i][0];
 			// anonymous function to ensure callback of pointed variable
 			 var expected = firstNote.deltaTime*timeFactor;
-			setTimeout( ( function(n){return function(){MyPlayOne(n);}} )
-					(firstNote),expected);
+
+			
+
+			timeOuts.push(setTimeout( ( function(n){return function(){MyPlayOne(n);}} )
+					(firstNote),expected));
 		}
 	}
 }
@@ -146,6 +171,16 @@ var StartMidi = function(){
 var StopMidi = function(){
 	isPlaying = false;
 	soundManager.stopAll();
+	timeOuts.map(function(t){clearTimeout(t);});
+}
+
+var toggleMidiPlayBack = function(){
+if(isPlaying){
+	StopMidi();
+}
+else{
+	StartMidi();
+}
 }
 
 

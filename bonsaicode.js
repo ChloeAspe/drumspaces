@@ -28,12 +28,15 @@
             stage.sendMessage('rhythmStop', {sName: prevSelected.sParent.sName});
           } 
           //START PLAY IN RHYTHM
-          stage.sendMessage('rhythmPlay', {sName: this.sParent.sName}); 
+          stage.sendMessage('rhythmPlay', {sName: nowSelected.sParent.sName}); 
         } else { // if clicked sample was already selected, unselect it
-          nowSelected = {sParent: {sName: ""}};
-          this.fill('gray');
-          // STOP PLAY IN RHYTHM
-          stage.sendMessage('rhythmStop', {sName: this.sParent.sName});
+          
+          // not sure we need that, we can already mute them
+
+          // nowSelected = {sParent: {sName: ""}};
+          // this.fill('gray');
+          // // STOP PLAY IN RHYTHM
+          // stage.sendMessage('rhythmStop', {sName: this.sParent.sName});
         }
         nameDisplay.attr('text', nowSelected.sParent.shortName); // update displayed name; // update displayed name
       })
@@ -41,7 +44,7 @@
         // if(nowSelected.sParent.sName=="") { // mouseover playback only works if theres no sample selected in the current drumspace
           this.fill('white');
           nameDisplay.attr('text', this.sParent.shortName); // update displayed name
-          console.log(this.sParent.shortName);
+          
           // PLAY JUST ONCE
           stage.sendMessage('soloPlay', {sName: this.sParent.sName});
         // }
