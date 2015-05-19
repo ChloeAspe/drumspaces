@@ -11,7 +11,7 @@ var soundClasses;
 
 
 var loadAll = function(){
-	bpm = 100;
+	bpm = 120;
 	loadPlayer();
 	loadMidi("Maschine");
 	midiMap = new Array();
@@ -22,7 +22,8 @@ var loadAll = function(){
 	console.log(noteOn)
 
 	window.addEventListener("keypress", function(e){
-		if(e.keyCode == 32){toggleMidiPlayBack()};
+		if(e.keyCode == 32){
+			toggleMidiPlayBack()};
 	});
 
 	MutedGroup["Kick"] = false;
@@ -44,7 +45,7 @@ var loadPlayer = function(){
 		   id: type,
 		   url: "",//"samples/" + type + "/"+ audioFiles[type][0],
 		   volume: 70,
-		   multiShot: false,
+		   multiShot: true,
 		   autoLoad: true,
 		   autoPlay : false,
 		   stream: true
@@ -177,9 +178,11 @@ var StopMidi = function(){
 var toggleMidiPlayBack = function(){
 if(isPlaying){
 	StopMidi();
+	$("#PlayBtn").find("p").text("START RHYTHM");
 }
 else{
 	StartMidi();
+	$("#PlayBtn").find("p").text("STOP RHYTHM");
 }
 }
 
