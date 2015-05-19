@@ -82,64 +82,71 @@ window.onload = function(){
   kickBonsai.on('load', function() {
     kickBonsai.on('message:rhythmPlay', function(data) {
       console.log("rhythm play : "+ data.sName);
+      setMidiMap("Kick",data.sName);
+
     }).on('message:soloPlay',function(data) {
       playOne("Kick",data.sName); 
     }).on('message:rhythmMute',function(data) {
-      console.log("rhyth mute : "+ data.sName);
+      // console.log("rhyth mute : "+ data.sName);
     }).on('message:rhythmUnmute',function(data) {
-      console.log("rhyth unmute : "+ data.sName);
-    }).on('message:rhythmStop',function(data) {
-      console.log("rhythm stop : "+ data.sName);
+      // console.log("rhyth unmute : "+ data.sName);
+    // }).on('message:rhythmStop',function(data) {
+      // console.log("rhythm stop : "+ data.sName);
     });
   });
 
   snareBonsai.on('load', function() {
     snareBonsai.on('message:rhythmPlay', function(data) {
       console.log("rhythm play : "+ data.sName);
+      setMidiMap("Snare",data.sName);
     }).on('message:soloPlay',function(data) {
       playOne("Snare",data.sName); 
     }).on('message:rhythmMute',function(data) {
-      console.log("rhyth mute : "+ data.sName);
+      // console.log("rhyth mute : "+ data.sName);
     }).on('message:rhythmUnmute',function(data) {
-      console.log("rhyth unmute : "+ data.sName);
-    }).on('message:rhythmStop',function(data) {
-      console.log("rhythm stop : "+ data.sName);
+      // console.log("rhyth unmute : "+ data.sName);
+    // }).on('message:rhythmStop',function(data) {
+      // console.log("rhythm stop : "+ data.sName);
     });
   });
 
   ohhBonsai.on('load', function() {
     ohhBonsai.on('message:rhythmPlay', function(data) {
+      setMidiMap("OpenHH",data.sName);
       console.log("rhythm play : "+ data.sName);
     }).on('message:soloPlay',function(data) {
       playOne("OpenHH",data.sName); 
     }).on('message:rhythmMute',function(data) {
-      console.log("rhyth mute : "+ data.sName);
+      // console.log("rhyth mute : "+ data.sName);
     }).on('message:rhythmUnmute',function(data) {
-      console.log("rhyth unmute : "+ data.sName);
-    }).on('message:rhythmStop',function(data) {
-      console.log("rhythm stop : "+ data.sName);
+      // console.log("rhyth unmute : "+ data.sName);
+    // }).on('message:rhythmStop',function(data) {
+      // console.log("rhythm stop : "+ data.sName);
     });
   });
 
   chhBonsai.on('load', function() {
     chhBonsai.on('message:rhythmPlay', function(data) {
       console.log("rhythm play : "+ data.sName);
+      setMidiMap("ClosedHH",data.sName);
     }).on('message:soloPlay',function(data) {
       playOne("ClosedHH",data.sName); 
     }).on('message:rhythmMute',function(data) {
-      console.log("rhyth mute : "+ data.sName);
+      // console.log("rhyth mute : "+ data.sName);
     }).on('message:rhythmUnmute',function(data) {
-      console.log("rhyth unmute : "+ data.sName);
-    }).on('message:rhythmStop',function(data) {
-      console.log("rhythm stop : "+ data.sName);
+      // console.log("rhyth unmute : "+ data.sName);
+    // }).on('message:rhythmStop',function(data) {
+      // console.log("rhythm stop : "+ data.sName);
     });
   });
 
 $("#PlayBtn").click(function() {
   if($(this).find("p").text() == "PLAY RHYTHM") {
     $(this).find("p").text("STOP RHYTHM");
+    StartMidi();
   }else{
     $(this).find("p").text("PLAY RHYTHM");
+    StopMidi();
   }
 });
 

@@ -28,7 +28,7 @@
             stage.sendMessage('rhythmStop', {sName: prevSelected.sParent.sName});
           } 
           //START PLAY IN RHYTHM
-          stage.sendMessage('rhythmPlay', {sName: nowSelected.sParent.sName}); 
+          stage.sendMessage('rhythmPlay', {sName: this.sParent.sName}); 
         } else { // if clicked sample was already selected, unselect it
           nowSelected = {sParent: {sName: ""}};
           this.fill('gray');
@@ -38,19 +38,25 @@
         nameDisplay.attr('text', nowSelected.sParent.shortName); // update displayed name; // update displayed name
       })
       .on('mouseover',function(e){
-        if(nowSelected.sParent.sName=="") { // mouseover playback only works if theres no sample selected in the current drumspace
+        // if(nowSelected.sParent.sName=="") { // mouseover playback only works if theres no sample selected in the current drumspace
           this.fill('white');
           nameDisplay.attr('text', this.sParent.shortName); // update displayed name
           console.log(this.sParent.shortName);
           // PLAY JUST ONCE
           stage.sendMessage('soloPlay', {sName: this.sParent.sName});
-        }
+        // }
       })
       .on('mouseout',function(e){
-          if(nowSelected.sParent.sName=="") {
-            this.fill('gray');
-            nameDisplay.attr('text', '');
+          if(this.sParent.sName == nowSelected.sParent.sName) {
+            this.fill('red');
+            
           }
+          else{
+            this.fill('gray');
+
+          }
+
+          nameDisplay.attr('text', '');
       });
     } // end forloop on list
       

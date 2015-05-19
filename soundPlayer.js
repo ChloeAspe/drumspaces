@@ -1,4 +1,6 @@
-soundManager.setup({debugMode: true})
+soundManager.setup({debugMode: false})
+
+
 
 // Array storing player 
 var sounds;
@@ -7,26 +9,30 @@ var explorationPlayer;
 var soundClasses;
 
 
+
 var loadAll = function(){
+	bpm = 100;
 	loadPlayer();
 	loadMidi("Maschine");
+	midiMap = new Array();
 	midiMap[0] ="Kick"
 	midiMap[1]="Snare"
 	midiMap[2]="ClosedHH"
 	midiMap[3]="OpenHH"
+	console.log(noteOn)
 }
 
 
 // audio Player
 
 var loadPlayer = function(){
-	sounds = new Array();
+	sounds = {};
 	soundClasses = new Array();
 	
 	for ( var type  in audioFiles){
 		soundClasses.push(type);
-		sounds[name] = new soundManager.createSound({
-		   id: name,
+		sounds[type] = new soundManager.createSound({
+		   id: type,
 		   url: "samples/" + type + "/"+ audioFiles[type][0],
 		   volume: 70,
 		   multiShot: false,
@@ -48,6 +54,7 @@ var loadPlayer = function(){
 
 
 var playType=function(type,vel){
+	
 	choke(type);
 	sounds[type].play();
 	sounds[type].volume = vel*100.0/127;
@@ -60,7 +67,7 @@ var playOne = function(type,fname){
 	explorationPlayer.play();
 }
 
-var setType=function(type,name){
+var setMidiMap = function(type,name){
 
 	sounds[type].url = "samples/" + type + "/"+ name;
 	sounds[type].load();
@@ -70,7 +77,7 @@ var setType=function(type,name){
 var choke = function(type){
 	if(type in chokeGroup){
 		for(t in chokeGroup){
-			sounds[t].stop();
+			 sounds[t].stop();
 		}
 	}
 }	
@@ -89,7 +96,7 @@ var noteOn;
 var noteOff;
 var bpm;
 
-var midiMap ={};
+var midiMap ;
 
 
 
@@ -98,19 +105,24 @@ var midi = MIDI.Player;
 
 var MyPlayOne = function(note){
 	if(isPlaying ){
+		
 		playType(midiMap[note.audioType],note.velocity);
 		var idx = (note.idx + 1)% noteOn[note.audioType].length;
 		var nextEventDelay = noteOn[note.audioType][idx].deltaTime*timeFactor; 
 		
 		if(idx!=0){
-			//console.log("next note in :",nextEventDelay);
-			setTimeout(function(){MyPlayOne([note.audioType][idx])},nextEventDelay);
+			// anonymous function to ensure callback of pointed variable
+
+			setTimeout((function(n){return function(){MyPlayOne(n);}})
+					(noteOn[note.audioType][idx]),nextEventDelay);
+		
 		}
 		else if(idx == 0 && note.audioType == lastNoteType){
 			
 			nextEventDelay= lastSilence*timeFactor;
-			console.log("loop : ",nextEventDelay);
-			setTimeout(MyPlayerStart,nextEventDelay);
+			
+			setTimeout(StartMidi,nextEventDelay);
+
 		}
 	}
 }
@@ -118,15 +130,23 @@ var MyPlayOne = function(note){
 
 var StartMidi = function(){
 	isPlaying = true;
-	//console.log(noteOn[0].deltaTime*timeFactor);
+	//
 	for(var i = 0 ; i < noteOn.length ; i++){
 		if(noteOn[i][0]){
-			var expected = noteOn[i][0].deltaTime*timeFactor
-			setTimeout(function(){MyPlayOne[noteOn[i][0]]},noteOn[i][0].deltaTime*timeFactor);
+			var firstNote = noteOn[i][0];
+			// anonymous function to ensure callback of pointed variable
+			 var expected = firstNote.deltaTime*timeFactor;
+			setTimeout( ( function(n){return function(){MyPlayOne(n);}} )
+					(firstNote),expected);
 		}
 	}
 }
 
+
+var StopMidi = function(){
+	isPlaying = false;
+	soundManager.stopAll();
+}
 
 
 
@@ -136,7 +156,7 @@ var StartMidi = function(){
 
 var loadMidi = function(midiName){
 	midi.loadFile('data:audio/midi;base64,'+midiFiles[midiName],function(){
-		console.log("loaded");
+		
 		
 		noteOn = new Array();
 		noteOff = new Array();
@@ -144,12 +164,12 @@ var loadMidi = function(midiName){
 		
 		var nIdx =[0,0,0,0];
 		var deltaCount = [0,0,0,0];
-		console.log("ticks",midi.ticksPerBeats);
+		
 		timeFactor = 60000.0/(bpm*midi.ticksPerBeats);
 		var runningCount = [0,0,0,0];
 
 		for( var i = 0 ; i < midi.data.length ; i++){
-			//console.log(midi.data[i][0].event)
+			//
 			if(midi.data[i][0].event["channel"]<4){
 				if (midi.data[i][0].event["subtype"] == "noteOn"  ){
 					
@@ -180,10 +200,10 @@ var loadMidi = function(midiName){
 		}
 		// hack as midi doesent include loop length info : take the next 4 beat roundness
 		loopLength = (Math.floor(lastnoteOff/(4*midi.ticksPerBeats)-0.001) + 1) *(4*midi.ticksPerBeats);
-		console.log("loopLength",loopLength);
+		
 		lastSilence = loopLength - runningCount[lastNoteType]  ;
-		console.log("lastSilence",lastSilence);
-		console.log(noteOn);
+		
+		
 		
 			
 	})	
@@ -203,5 +223,5 @@ else if (window.attachEvent) // Microsoft
   window.attachEvent('onload', loadAll);
 }
 else{
-	console.log("browser not supporting on load event listener");
+	
 }
