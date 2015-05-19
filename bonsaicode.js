@@ -1,4 +1,4 @@
-     //get variables from window context passed in the fct call
+//get variables from window context passed in the fct call
      var sampleListBonsai = stage.options.sampleList;
      var radius = stage.options.radius;
      
@@ -25,18 +25,19 @@
           nowSelected.fill('#FF6347');
           if(prevSelected.attr) { // if there was a previously selected sample, unselect it
             prevSelected.fill('gray');
-            stage.sendMessage('rhythmStop', {sName: prevSelected.sParent.sName});
+            stage.sendMessage('removeFromRhythm', {sName: prevSelected.sParent.sName});
           } 
           //START PLAY IN RHYTHM
-          stage.sendMessage('rhythmPlay', {sName: nowSelected.sParent.sName}); 
+          stage.sendMessage('addToRhythm', {sName: nowSelected.sParent.sName}); 
         } else { // if clicked sample was already selected, unselect it
           
           // not sure we need that, we can already mute them
+          // yes mais d'habitude pour déselectionner un objet on re clic dessus..?
 
           // nowSelected = {sParent: {sName: ""}};
           // this.fill('gray');
           // // STOP PLAY IN RHYTHM
-          // stage.sendMessage('rhythmStop', {sName: this.sParent.sName});
+          // stage.sendMessage('removeFromRhythm', {sName: this.sParent.sName});
         }
         nameDisplay.attr('text', nowSelected.sParent.shortName); // update displayed name; // update displayed name
       })
@@ -51,14 +52,11 @@
       })
       .on('mouseout',function(e){
           if(this.sParent.sName == nowSelected.sParent.sName) {
-            this.fill('red');
-            
+            this.fill('#FF6347');
           }
           else{
             this.fill('gray');
-
           }
-
           nameDisplay.attr('text', '');
       });
     } // end forloop on list

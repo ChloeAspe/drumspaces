@@ -207,3 +207,22 @@ display: block;
   position: relative;
   overflow: hidden;
 }
+
+/* list view */
+.drumspace.listview {
+	overflow-y: scroll;
+	overflow-x: hidden;
+	width: 520px;
+	margin-top: 10px;
+}
+
+.drumspace.listview > div {
+	height: 14000px;
+}
+
+.mute-btn {
+	vertical-align: text-top;
+	width: 30px;
+	height: 30px;
+	margin-left: 20px;
+}
