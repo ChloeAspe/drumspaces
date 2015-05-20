@@ -134,8 +134,6 @@ window.onload = function(){
         break;
     }
 
-    console.log("LOADVIEW SWITCH SAYS "+viewScript);
-
     // draw the sample spaces
     window.kickBonsai = bonsai.run(kickCanvas, {
       url: viewScript,

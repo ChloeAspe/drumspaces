@@ -1,4 +1,4 @@
-soundManager.setup({debugMode: false})
+soundManager.setup({debugMode: false,useHighPerformance : true,flashVersion: 9})
 
 
 
@@ -7,7 +7,7 @@ var sounds;
 var explorationPlayer;
 // array storing  sounds Classes (Kick,HH,....)
 var soundClasses;
-
+var useMp3 = true;
 
 
 var loadAll = function(){
@@ -64,7 +64,9 @@ var loadPlayer = function(){
 
 
 var playType=function(type,vel){
+
 	if(MutedGroup[type] == false){
+	
 	choke(type);
 	sounds[type].play();
 	sounds[type].volume = vel*100.0/127;
@@ -74,19 +76,30 @@ var playType=function(type,vel){
 
 var playOne = function(type,fname){
 	
-	explorationPlayer.url ="samples/" + type + "/"+ fname;
+	explorationPlayer.url = getSoundPath(type,fname);//"samples/" + type + "/"+ fname;
 	explorationPlayer.play();
 }
 
-var setMidiMap = function(type,name){
 
-	sounds[type].url = "samples/" + type + "/"+ name;
-	if(name!="")sounds[type].load();
+var getSoundPath = function(type ,_fname){
+	var fname =  _fname.substr(0,_fname.lastIndexOf('.'));
+
+	if (useMp3){
+		return "samples/mp3/" + type + "/"+ fname+'.mp3'
+	}
+	else{
+		return "samples/wav/" + type + "/"+ fname+'.wav'
+	}
+
+}
+var setMidiMap = function(type,fname){
+
+	sounds[type].url = getSoundPath(type,fname);//"samples/" + type + "/"+ name;
+	if(fname!="")sounds[type].load();
 }
 
 
 var choke = function(type){
-	
 	if($.inArray(type, chokeGroup)){
 		chokeGroup.map(function(t){
 			sounds[t].stop();
@@ -95,7 +108,7 @@ var choke = function(type){
 }	
 
 var setMuted = function(type,b){
-MutedGroup[type] = b;
+	MutedGroup[type] = b;
 }
 
 var chokeGroup = ["OpenHH","ClosedHH"];
@@ -124,6 +137,7 @@ var midi = MIDI.Player;
 
 
 var MyPlayOne = function(note){
+
 	if(isPlaying ){
 		
 		playType(midiMap[note.audioType],note.velocity);
@@ -151,7 +165,7 @@ var MyPlayOne = function(note){
 var StartMidi = function(){
 	isPlaying = true;
 	//
-
+	console.log("startMidi")
 	timeOuts.map(function(t){clearTimeout(t);});
 	timeOuts = new Array();
 	for(var i = 0 ; i < noteOn.length ; i++){

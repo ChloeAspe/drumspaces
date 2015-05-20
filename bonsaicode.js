@@ -33,6 +33,7 @@
           
           // not sure we need that, we can already mute them
           // yes mais d'habitude pour déselectionner un objet on re clic dessus..?
+          // to keep only one way to "mute " an object may be simpler (when you re not hearing you have only one thing to check ( dumbproof feature))
 
           // nowSelected = {sParent: {sName: ""}};
           // this.fill('gray');
