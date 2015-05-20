@@ -95,7 +95,7 @@ var getSoundPath = function(type ,_fname){
 var setMidiMap = function(type,fname){
 
 	sounds[type].url = getSoundPath(type,fname);//"samples/" + type + "/"+ name;
-	if(name!="")sounds[type].load();
+	if(fname!="")sounds[type].load();
 }
 
 
