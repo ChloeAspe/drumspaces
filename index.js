@@ -80,7 +80,7 @@ window.onload = function(){
   // handle interface messages-- from the bonsaijs runner context
   // the OSC msgs will be sent from here
   kickBonsai.on('load', function() {
-    kickBonsai.on('message:rhythmPlay', function(data) {
+    kickBonsai.on('message:addToRhythm', function(data) {
       console.log("rhythm play : "+ data.sName);
       setMidiMap("Kick",data.sName);
 
@@ -98,7 +98,7 @@ window.onload = function(){
   });
 
   snareBonsai.on('load', function() {
-    snareBonsai.on('message:rhythmPlay', function(data) {
+    snareBonsai.on('message:addToRhythm', function(data) {
       console.log("rhythm play : "+ data.sName);
       setMidiMap("Snare",data.sName);
     }).on('message:soloPlay',function(data) {
@@ -115,7 +115,7 @@ window.onload = function(){
   });
 
   ohhBonsai.on('load', function() {
-    ohhBonsai.on('message:rhythmPlay', function(data) {
+    ohhBonsai.on('message:addToRhythm', function(data) {
       setMidiMap("OpenHH",data.sName);
       console.log("rhythm play : "+ data.sName);
     }).on('message:soloPlay',function(data) {
@@ -132,7 +132,7 @@ window.onload = function(){
   });
 
   chhBonsai.on('load', function() {
-    chhBonsai.on('message:rhythmPlay', function(data) {
+    chhBonsai.on('message:addToRhythm', function(data) {
       console.log("rhythm play : "+ data.sName);
       setMidiMap("ClosedHH",data.sName);
     }).on('message:soloPlay',function(data) {

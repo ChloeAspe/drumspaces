@@ -2,7 +2,12 @@
 TODO : General Infos, references
 
 #Instructions
-open index.html
+open index.html in youre favorite browser
+
+#Requirements
+your favorite browser has to be either Chrome or Mozilla
+Windows/OSX tested , linux not Tested
+
 
 #Interfaces details
 ## Common
@@ -27,7 +32,8 @@ for each part you can :
 
 
 #Known Issues
-* Browsers : chrome works, not working on safari,  other not tested 
+
+* PlayBack is not reliable if browser window is hidden
 
 
 #References
