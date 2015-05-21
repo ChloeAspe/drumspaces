@@ -11,6 +11,7 @@ function sampleObject(argName, argX, argY, argType) {
 
 function getSampleObjects(jsonData,type){
   var list = new Array();
+  console.log(jsonData)
     for ( var i in jsonData ){
      list.push(new sampleObject(i,
       (jsonData[i][0]+0.5),
@@ -27,7 +28,7 @@ canvasDim.x = 250
 canvasDim.y =500
 
 // VIEWTYPE : changes between the 3 tasks, random order
-var viewType= 1; // 1-list, 2-spacerandom, 3-spaceorganized
+var viewType= 2; // 1-list, 2-spacerandom, 3-spaceorganized
 
 window.onload = function(){
   //get divs where we will draw
@@ -139,7 +140,7 @@ window.onload = function(){
       url: viewScript,
       height: h,
       width: canvasDim.y,
-      sampleList: getSampleObjects(KickPos,"Kick"),
+      sampleList: getSampleObjects(Alphabetic_KickPos,"Kick"),
       radius: RADIUS
     });
 
@@ -147,7 +148,7 @@ window.onload = function(){
       url: viewScript,
       height: h,
       width: canvasDim.y,
-      sampleList: getSampleObjects(SnarePos,"Snare"),
+      sampleList: getSampleObjects(Alphabetic_SnarePos,"Snare"),
       radius: RADIUS
     });
 
@@ -155,7 +156,7 @@ window.onload = function(){
       url: viewScript,
       height: h,
       width: canvasDim.y,
-      sampleList: getSampleObjects(OpenHHPos,"OpenHH"),
+      sampleList: getSampleObjects(Alphabetic_OpenHHPos,"OpenHH"),
       radius: RADIUS
     });
 
@@ -163,7 +164,7 @@ window.onload = function(){
       url: viewScript,
       height: h,
       width: canvasDim.y,
-      sampleList: getSampleObjects(ClosedHHPos,"ClosedHH"),
+      sampleList: getSampleObjects(Alphabetic_ClosedHHPos,"ClosedHH"),
       radius: RADIUS
     });
 

@@ -7,13 +7,13 @@ var sounds;
 var explorationPlayer;
 // array storing  sounds Classes (Kick,HH,....)
 var soundClasses;
-var useMp3 = true;
+var useMp3 = false;
 
 
 var loadAll = function(){
-	bpm = 120;
+	bpm = 80;
 	loadPlayer();
-	loadMidi("Maschine");
+	loadMidi("jazz");
 	midiMap = new Array();
 	midiMap[0]="Kick"
 	midiMap[1]="Snare"
@@ -141,23 +141,6 @@ var MyPlayOne = function(note){
 	if(isPlaying ){
 		
 		playType(midiMap[note.audioType],note.velocity);
-		var idx = (note.idx + 1)% noteOn[note.audioType].length;
-		var nextEventDelay = noteOn[note.audioType][idx].deltaTime*timeFactor; 
-		
-		if(idx!=0){
-			// anonymous function to ensure callback of pointed variable
-
-			timeOuts.push(setTimeout((function(n){return function(){MyPlayOne(n);}})
-					(noteOn[note.audioType][idx]),nextEventDelay));
-		
-		}
-		else if(idx == 0 && note.audioType == lastNoteType){
-			
-			nextEventDelay= lastSilence*timeFactor;
-			
-			timeOuts.push(setTimeout(StartMidi,nextEventDelay));
-
-		}
 	}
 }
 
@@ -168,18 +151,24 @@ var StartMidi = function(){
 	console.log("startMidi")
 	timeOuts.map(function(t){clearTimeout(t);});
 	timeOuts = new Array();
+	timeOuts.push(setTimeout(StartMidi,loopLength*timeFactor));
 	for(var i = 0 ; i < noteOn.length ; i++){
 		if(noteOn[i][0]){
-			var firstNote = noteOn[i][0];
+			var expected = 0;//firstNote.deltaTime*timeFactor;
+			for( var j = 0 ; j < noteOn[i].length;j++){
+			var note = noteOn[i][j];
+			expected+=note.deltaTime*timeFactor;
 			// anonymous function to ensure callback of pointed variable
-			 var expected = firstNote.deltaTime*timeFactor;
+				timeOuts.push(setTimeout( ( function(n){return function(){MyPlayOne(n);}} )
+					(note),expected));
+
+			}
 
 			
-
-			timeOuts.push(setTimeout( ( function(n){return function(){MyPlayOne(n);}} )
-					(firstNote),expected));
 		}
 	}
+	
+
 }
 
 
@@ -222,11 +211,13 @@ var loadMidi = function(midiName){
 
 		for( var i = 0 ; i < midi.data.length ; i++){
 			//
-			if(midi.data[i][0].event["channel"]<4){
+
+			var audioType = midi.data[i][0].event["channel"];
+			if(audioType<4){
 				if (midi.data[i][0].event["subtype"] == "noteOn"  ){
 					
 					var note =  Object();
-					note.audioType =midi.data[i][0].event["channel"];
+					note.audioType =audioType;
 					note.idx = nIdx[note.audioType];
 					note.deltaTime = deltaCount[note.audioType] + midi.data[i][0].event["deltaTime"];
 					runningCount[note.audioType]+= note.deltaTime ;
@@ -237,8 +228,8 @@ var loadMidi = function(midiName){
 					noteOn[note.audioType].push(note);
 				}
 				else if( midi.data[i][0].event["subtype"] == "noteOff" ){
-					noteOff[midi.data[i][0].event["channel"]].push(midi.data[i][0].event["deltaTime"]);
-					deltaCount[midi.data[i][0].event["channel"]]+= midi.data[i][0].event["deltaTime"];
+					noteOff[audioType].push(midi.data[i][0].event["deltaTime"]);
+					deltaCount[audioType]+= midi.data[i][0].event["deltaTime"];
 				}
 			}
 		}
@@ -251,7 +242,7 @@ var loadMidi = function(midiName){
 			}
 		}
 		// hack as midi doesent include loop length info : take the next 4 beat roundness
-		loopLength = (Math.floor(lastnoteOff/(4*midi.ticksPerBeats)-0.001) + 1) *(4*midi.ticksPerBeats);
+		loopLength = (Math.ceil((lastnoteOff - 1)/(4.0*midi.ticksPerBeats))  ) *(4*midi.ticksPerBeats);
 		
 		lastSilence = loopLength - runningCount[lastNoteType]  ;
 		
