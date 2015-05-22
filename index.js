@@ -11,7 +11,7 @@ function sampleObject(argName, argX, argY, argType) {
 
 function getSampleObjects(jsonData,type){
   var list = new Array();
-  console.log(jsonData)
+  console.log(jsonData);
     for ( var i in jsonData ){
      list.push(new sampleObject(i,
       (jsonData[i][0]+0.5),
@@ -38,6 +38,12 @@ window.onload = function(){
   var chhCanvas = document.getElementById("chh-canvas");
   var h;
   var viewScript = '';
+  var jsonDataKick = KickPos;
+  var jsonDataSnare = SnarePos;
+  var jsonDataOHH = OpenHHPos;
+  var jsonDataCHH = ClosedHHPos;
+  var rhythmIsOn = false;
+  var selectedKick, selectedSnare, selectedOHH, selectedCHH;
 
   //-------------- TASK TIMING ----------------
 
@@ -118,19 +124,22 @@ window.onload = function(){
         viewScript='bonsaicodeList.js';
         h=14000;
         $(".drumspace").addClass("listview");
-        $(".mute-btn").css("display", "inline");
         console.log("listview");
         break;
       case 2:
         viewScript='bonsaicode.js';
         h=canvasDim.x;
+        jsonDataKick = Alphabetic_KickPos;
+        jsonDataSnare = Alphabetic_SnarePos;
+        jsonDataOHH = Alphabetic_OpenHHPos;
+        jsonDataCHH = Alphabetic_ClosedHHPos;
         $(".drumspace").removeClass("listview");
-        $(".mute-btn").css("display", "none");
         console.log("spacerand view");
         break;
       case 3: 
         viewScript='bonsaicode.js';
         h=canvasDim.x;
+        $(".drumspace").removeClass("listview");
         console.log("spaceorg view");
         break;
     }
@@ -140,7 +149,7 @@ window.onload = function(){
       url: viewScript,
       height: h,
       width: canvasDim.y,
-      sampleList: getSampleObjects(Alphabetic_KickPos,"Kick"),
+      sampleList: getSampleObjects(jsonDataKick,"Kick"),
       radius: RADIUS
     });
 
@@ -148,7 +157,7 @@ window.onload = function(){
       url: viewScript,
       height: h,
       width: canvasDim.y,
-      sampleList: getSampleObjects(Alphabetic_SnarePos,"Snare"),
+      sampleList: getSampleObjects(jsonDataSnare,"Snare"),
       radius: RADIUS
     });
 
@@ -156,7 +165,7 @@ window.onload = function(){
       url: viewScript,
       height: h,
       width: canvasDim.y,
-      sampleList: getSampleObjects(Alphabetic_OpenHHPos,"OpenHH"),
+      sampleList: getSampleObjects(jsonDataOHH,"OpenHH"),
       radius: RADIUS
     });
 
@@ -164,78 +173,106 @@ window.onload = function(){
       url: viewScript,
       height: h,
       width: canvasDim.y,
-      sampleList: getSampleObjects(Alphabetic_ClosedHHPos,"ClosedHH"),
+      sampleList: getSampleObjects(jsonDataCHH,"ClosedHH"),
       radius: RADIUS
     });
 
     // handle interface messages-- from the bonsaijs runner context
     // the OSC msgs will be sent from here
     kickBonsai.on('load', function() {
-      kickBonsai.on('message:addToRhythm', function(data) {
+      kickBonsai.on('message:selectSample', function(data) {
         console.log("add to rhythm : "+ data.sName);
         setMidiMap("Kick",data.sName);
-
-      }).on('message:soloPlay',function(data) {
-        playOne("Kick",data.sName); 
+        selectedKick = data;
+      }).on('message:mouseOver',function(data) {
+        if(rhythmIsOn == true) { // if rhythm is On, replace selected CHH
+          setMidiMap("Kick",data.sName);
+          console.log("play in rhythm : "+ data.sName);
+        } else { // otherwise just play it once
+          playOne("Kick",data.sName); 
+          console.log("soloplay : "+ data.sName);
+        }
+      }).on('message:mouseOut', function(data) {
+        if(rhythmIsOn == true) { // if rhythm On, come back to selected CHH
+          setMidiMap("Kick", selectedKick.sName);
+          console.log("play in rhythm: "+selectedKick.sName)
+        }
       }).on('message:rhythmMute',function(data) {
         setMuted("Kick",true);
-        // console.log("rhyth mute : "+ data.sName);
       }).on('message:rhythmUnmute',function(data) {
         setMuted("Kick",false);
-        // console.log("rhyth unmute : "+ data.sName);
-      // }).on('message:rhythmStop',function(data) {
-        // console.log("rhythm stop : "+ data.sName);
       });
     });
 
     snareBonsai.on('load', function() {
-      snareBonsai.on('message:addToRhythm', function(data) {
+      snareBonsai.on('message:selectSample', function(data) {
         console.log("add to rhythm : "+ data.sName);
         setMidiMap("Snare",data.sName);
-      }).on('message:soloPlay',function(data) {
-        playOne("Snare",data.sName); 
+        selectedSnare = data;
+      }).on('message:mouseOver',function(data) {
+        if(rhythmIsOn == true) { // if rhythm is On, replace selected CHH
+          setMidiMap("Snare",data.sName);
+          console.log("play in rhythm : "+ data.sName);
+        } else { // otherwise just play it once
+          playOne("Snare",data.sName); 
+          console.log("soloplay : "+ data.sName);
+        }
+      }).on('message:mouseOut', function(data) {
+        if(rhythmIsOn == true) { // if rhythm On, come back to selected CHH
+          setMidiMap("Snare", selectedSnare.sName);
+          console.log("play in rhythm: "+selectedSnare.sName)
+        }
       }).on('message:rhythmMute',function(data) {
         setMuted("Snare",true);
-        // console.log("rhyth mute : "+ data.sName);
       }).on('message:rhythmUnmute',function(data) {
         setMuted("Snare",false);
-        // console.log("rhyth unmute : "+ data.sName);
-      // }).on('message:rhythmStop',function(data) {
-        // console.log("rhythm stop : "+ data.sName);
       });
     });
 
     ohhBonsai.on('load', function() {
-      ohhBonsai.on('message:addToRhythm', function(data) {
+      ohhBonsai.on('message:selectSample', function(data) {
         setMidiMap("OpenHH",data.sName);
         console.log("add to rhythm : "+ data.sName);
-      }).on('message:soloPlay',function(data) {
-        playOne("OpenHH",data.sName); 
+        selectedOHH = data;
+      }).on('message:mouseOver',function(data) {
+        if(rhythmIsOn == true) { // if rhythm is On, replace selected CHH
+          setMidiMap("OpenHH",data.sName);
+          console.log("play in rhythm : "+ data.sName);
+        } else { // otherwise just play it once
+          playOne("OpenHH",data.sName); 
+          console.log("soloplay : "+ data.sName);
+        }
+      }).on('message:mouseOut', function(data) {
+        if(rhythmIsOn == true) { // if rhythm On, come back to selected CHH
+          setMidiMap("OpenHH", selectedOHH.sName);
+          console.log("play in rhythm: "+selectedOHH.sName)
+        }
       }).on('message:rhythmMute',function(data) {
         setMuted("OpenHH",true);
-        // console.log("rhyth mute : "+ data.sName);
       }).on('message:rhythmUnmute',function(data) {
         setMuted("OpenHH",false);
-        // console.log("rhyth unmute : "+ data.sName);
-      // }).on('message:rhythmStop',function(data) {
-        // console.log("rhythm stop : "+ data.sName);
       });
     });
 
     chhBonsai.on('load', function() {
-      chhBonsai.on('message:addToRhythm', function(data) {
+      chhBonsai.on('message:selectSample', function(data) {
         console.log("add to rhythm : "+ data.sName);
         setMidiMap("ClosedHH",data.sName);
-      }).on('message:soloPlay',function(data) {
-        playOne("ClosedHH",data.sName); 
+        selectedCHH = data;
+      }).on('message:mouseOver', function(data) {
+        if(rhythmIsOn == true) { // if rhythm is On, replace selected CHH
+          setMidiMap("ClosedHH",data.sName);
+        } else { // otherwise just play it once
+          playOne("ClosedHH",data.sName); 
+        }
+      }).on('message:mouseOut', function(data) {
+        if(rhythmIsOn == true) { // if rhythm On, come back to selected CHH
+          setMidiMap("ClosedHH", selectedCHH.sName);
+        }
       }).on('message:rhythmMute',function(data) {
         setMuted("ClosedHH",true);
-        // console.log("rhyth mute : "+ data.sName);
       }).on('message:rhythmUnmute',function(data) {
         setMuted("ClosedHH",false);
-        // console.log("rhyth unmute : "+ data.sName);
-      // }).on('message:rhythmStop',function(data) {
-        // console.log("rhythm stop : "+ data.sName);
       });
     });
 
@@ -243,9 +280,11 @@ window.onload = function(){
       if($(this).find("p").text() == "PLAY RHYTHM") {
         $(this).find("p").text("STOP RHYTHM");
         StartMidi();
+        rhythmIsOn=true;
       }else{
         $(this).find("p").text("PLAY RHYTHM");
         StopMidi();
+        rhythmIsOn=false;
       }
     });
 
