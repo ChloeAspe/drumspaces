@@ -82,7 +82,14 @@ var playOne = function(type,fname){
 
 
 var getSoundPath = function(type ,_fname){
-	var fname =  _fname.substr(0,_fname.lastIndexOf('.'));
+	var fname = "";
+	if(_fname !== undefined) {
+		fname =  _fname.substr(0,_fname.lastIndexOf('.'));
+	} 
+	/* otherwise error when trying to reset midimap to selectedSample
+	on mouseout a not selected sample
+	(when rhythmIsOn and mouseovered samples are played on rhythm instead of the selected one) */
+
 
 	if (useMp3){
 		return "samples/mp3/" + type + "/"+ fname+'.mp3'

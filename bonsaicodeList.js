@@ -13,7 +13,6 @@
 
     for(var i=0; i<sampleListBonsai.length; i++){ // go through kick/snare/ohh/chh list
       currentName = sampleListBonsai[i].sName;
-      
       var line = new Group();
       line.rect  = new Rect(20, placeY, stage.options.width-20, 29).addTo(stage);
       line.playbackRect  = new Rect(0, placeY, 20, 29).addTo(line);
@@ -66,9 +65,9 @@
 
       placeY=placeY+30;
     } // end forloop on list
-      
 
-    stage.on('message:mute', function(data){
+
+    /*stage.on('message:mute', function(data){
       if(nowSelected.rect) {
         if(data==true) {
           nowSelected.rect.fill('#555');
@@ -76,6 +75,6 @@
           nowSelected.rect.fill('#FF6347');
         }
       }
-    });
+    });*/
     
   
