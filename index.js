@@ -16,19 +16,19 @@ function getSampleObjects(jsonData,type){
      list.push(new sampleObject(i,
       (jsonData[i][0]+0.5),
       (jsonData[i][1]+0.5),
-      type))
+      type));
   }
   return list;
 }
 
-// view constants
+// constants
 var RADIUS = 6;
 var canvasDim = new Object();
 canvasDim.x = 250
 canvasDim.y =500
 
 // VIEWTYPE : changes between the 3 tasks, random order
-//var viewType= 2; // 1-list, 2-spacerandom, 3-spaceorganized
+//var viewType= 3; // 1-list, 2-spacerandom, 3-spaceorganized
 
 //window.onload = function(){
   
@@ -121,6 +121,10 @@ canvasDim.y =500
         console.log("add to rhythm : "+ data.sName);
         setMidiMap("Kick",data.sName);
         selectedKick = data;
+        if($.inArray(selectedKick.sName, wasSelected)===-1) {
+          wasSelected.push(selectedKick.sName);
+          nbSelected+=1;
+        }
       }).on('message:mouseOver',function(data) {
         if(rhythmIsOn == true) { // if rhythm is On, replace selected CHH
           setMidiMap("Kick",data.sName);
@@ -128,6 +132,10 @@ canvasDim.y =500
         } else { // otherwise just play it once
           playOne("Kick",data.sName); 
           console.log("soloplay : "+ data.sName);
+        }
+        if($.inArray(data.sName, wasListened)===-1) {
+          wasListened.push(data.sName);
+          nbListened+=1;
         }
       }).on('message:mouseOut', function(data) {
         if(rhythmIsOn == true) { // if rhythm On, come back to selected CHH
@@ -146,6 +154,10 @@ canvasDim.y =500
         console.log("add to rhythm : "+ data.sName);
         setMidiMap("Snare",data.sName);
         selectedSnare = data;
+        if($.inArray(selectedSnare.sName, wasSelected)===-1) {
+          wasSelected.push(selectedSnare.sName);
+          nbSelected+=1;
+        }
       }).on('message:mouseOver',function(data) {
         if(rhythmIsOn == true) { // if rhythm is On, replace selected CHH
           setMidiMap("Snare",data.sName);
@@ -153,6 +165,10 @@ canvasDim.y =500
         } else { // otherwise just play it once
           playOne("Snare",data.sName); 
           console.log("soloplay : "+ data.sName);
+        }
+        if($.inArray(data.sName, wasListened)===-1) {
+          wasListened.push(data.sName);
+          nbListened+=1;
         }
       }).on('message:mouseOut', function(data) {
         if(rhythmIsOn == true) { // if rhythm On, come back to selected CHH
@@ -171,6 +187,10 @@ canvasDim.y =500
         setMidiMap("OpenHH",data.sName);
         console.log("add to rhythm : "+ data.sName);
         selectedOHH = data;
+        if($.inArray(selectedOHH.sName, wasSelected)===-1) {
+          wasSelected.push(selectedOHH.sName);
+          nbSelected+=1;
+        }
       }).on('message:mouseOver',function(data) {
         if(rhythmIsOn == true) { // if rhythm is On, replace selected CHH
           setMidiMap("OpenHH",data.sName);
@@ -178,6 +198,10 @@ canvasDim.y =500
         } else { // otherwise just play it once
           playOne("OpenHH",data.sName); 
           console.log("soloplay : "+ data.sName);
+        }
+        if($.inArray(data.sName, wasListened)===-1) {
+          wasListened.push(data.sName);
+          nbListened+=1;
         }
       }).on('message:mouseOut', function(data) {
         if(rhythmIsOn == true) { // if rhythm On, come back to selected CHH
@@ -196,11 +220,19 @@ canvasDim.y =500
         console.log("add to rhythm : "+ data.sName);
         setMidiMap("ClosedHH",data.sName);
         selectedCHH = data;
+        if($.inArray(selectedCHH.sName, wasSelected)===-1) {
+          wasSelected.push(selectedCHH.sName);
+          nbSelected+=1;
+        }
       }).on('message:mouseOver', function(data) {
         if(rhythmIsOn == true) { // if rhythm is On, replace selected CHH
           setMidiMap("ClosedHH",data.sName);
         } else { // otherwise just play it once
           playOne("ClosedHH",data.sName); 
+        }
+        if($.inArray(data.sName, wasListened)===-1) {
+          wasListened.push(data.sName);
+          nbListened+=1;
         }
       }).on('message:mouseOut', function(data) {
         if(rhythmIsOn == true) { // if rhythm On, come back to selected CHH
