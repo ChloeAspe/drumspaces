@@ -178,8 +178,8 @@ function addBtnHandlers() {
 	    		+task.selection.ClosedHH+','
 	    		+task.time+','
 	    		+task.nbSelected+','
-	    		+task.nbListened
-	    		+taskResult
+	    		+task.nbListened+','
+	    		+JSON.stringify(task)
 	    		+'\r\n';
 	    }
 	    console.log("csv: "+CSV);
