@@ -103,7 +103,7 @@ body{
 	overflow: hidden;
 }
 
-#PlayBtn {
+#play-btn {
 	position: absolute;
 	width: 120px;
 	height: 120px;
@@ -117,7 +117,7 @@ body{
 	box-shadow: 5px 5px 40px 30px rgba(0,0,0,0.87);
 }
 
-#PlayBtn p {
+#play-btn p {
 	margin-top: 25px;
 	font-size: 24px;
 }

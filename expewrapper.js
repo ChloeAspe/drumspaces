@@ -46,6 +46,7 @@
 		selectedOHH={};
 		selectedCHH={};
 		rhythmIsOn=false;
+		$('#play-btn').find("p").text("PLAY RHYTHM");
 		
 		if(window.kickBonsai) { 
 	      kickBonsai.destroy();
@@ -134,7 +135,7 @@ function addBtnHandlers() {
       }
     });
 
-    $("#PlayBtn").click(function() {
+    $("#play-btn").click(function() {
       if(rhythmIsOn===false) {
         $(this).find("p").text("STOP RHYTHM");
         console.log("play button - start");
@@ -156,39 +157,32 @@ function addBtnHandlers() {
 
 	function exportToCsv(dataObject, ReportTitle, ShowLabel) {
     //If JSONData is not an object then JSON.parse will parse the JSON string in an Object
-	    var JSONData = JSON.stringify(dataObject);
-	    var arrData = typeof JSONData != 'object' ? JSON.parse(JSONData) : JSONData;
+	    //var JSONData = JSON.stringify(dataObject);
+	    //var arrData = typeof JSONData != 'object' ? JSON.parse(JSONData) : JSONData;
 	    var CSV = '';
 	    //Set Report title in first row or line
-	    CSV  = ReportTitle +'\r\n\n';
+	    CSV  = 'Report '+ ReportTitle +'\r\n\n';
 
-	    /*This condition will generate the Label/Header
-	    if (ShowLabel) {
-	        var row = "";
-	        //This loop will extract the label from 1st index of on array
-	        for (var index in arrData[0]) {
-	            //Now convert each value to string and comma-seprated
-	            row  = index+',';
-	        }
-	        row = row.slice(0, -1);
-	        //append Label row with line break
-	        CSV += row +'\r\n';
+	    CSV+= "pid,seq,taskno,tview,tpattern,tkick,tsnare,tohh,tchh,tsel,tlist,ttime,tJSON"+'\r\n';
+	    for(var i=0, l=dataObject.taskResults.length; i<l; i++) {
+	    	var task=dataObject.taskResults[i];
+	    	console.log(dataObject);
+	    	CSV= CSV+ dataObject.pid+','
+	    		+'"'+dataObject.seq+'",'
+	    		+i+','
+	    		+task.view+','
+	    		+task.pattern+','
+	    		+task.selection.Kick+','
+	    		+task.selection.Snare+','
+	    		+task.selection.OpenHH+','
+	    		+task.selection.ClosedHH+','
+	    		+task.time+','
+	    		+task.nbSelected+','
+	    		+task.nbListened
+	    		+taskResult
+	    		+'\r\n';
 	    }
-
-	    //1st loop is to extract each row
-	    for (var i = 0; i < arrData.length; i  ) {
-	        var row = "";
-	        //2nd loop will extract each column and convert it in string comma-seprated
-	        for (var index in arrData[i]) {
-	            row  = '"'+arrData[i][index]+'",';
-	        }
-	        row.slice(0, row.length - 1);
-	        //add a line break after each row
-	        CSV  += row  +'\r\n';
-	    }*/
-
-	    CSV+=JSONData;
-	    console.log(CSV);
+	    console.log("csv: "+CSV);
 	    if (CSV == '') {
 	        alert("Invalid data");
 	        return;
@@ -224,7 +218,7 @@ function addBtnHandlers() {
 	var saveData = function() {
 		taskResult.view=sequence[taskNo][0];
 		taskResult.pattern=sequence[taskNo][1];
-		taskResult.selection = {'Kick': selectedKick.sName, 'Snare' : selectedSnare.sName, 'OpenHH': selectedOHH.sName, 'closedHH': selectedCHH.sName};
+		taskResult.selection = {'Kick': selectedKick.sName, 'Snare' : selectedSnare.sName, 'OpenHH': selectedOHH.sName, 'ClosedHH': selectedCHH.sName};
 		taskResult.time=time;
 		taskResult.nbSelected = nbSelected;
 		taskResult.nbListened = nbListened;
