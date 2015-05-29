@@ -1,0 +1,113 @@
+<!doctype html>  
+<!--[if lt IE 7 ]> <html lang="en" class="no-js ie6"> <![endif]-->
+<!--[if IE 7 ]>    <html lang="en" class="no-js ie7"> <![endif]-->
+<!--[if IE 8 ]>    <html lang="en" class="no-js ie8"> <![endif]-->
+<!--[if IE 9 ]>    <html lang="en" class="no-js ie9"> <![endif]-->
+<!--[if (gt IE 9)|!(IE)]><!--> <html lang="en" class="no-js"> <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width">
+  
+  <title>Listening and rating</title>
+
+  <!-- <link rel="shortcut icon" href="/favicon.ico"> -->
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" type="text/css" href="style.css"> 
+  <link rel="stylesheet" type="text/css" href="listeningstyle.css"> 
+
+  <script src="http://ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js"></script>
+  <script src="http://code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
+
+  <!-- Data -->
+  <script src="JSON/audioFiles.js" type="text/javascript"></script>
+  <script src="JSON/midiFiles.js" type="text/javascript"></script>
+  <!-- Libraries -->
+  <script src="includes/soundManager/soundManager2.js" type="text/javascript"></script>
+  <script src="includes/jasmid/midifile.js" type="text/javascript"></script>
+  <script src="includes/jasmid/replayer.js" type="text/javascript"></script>
+  <script src="includes/jasmid/stream.js" type="text/javascript"></script>
+  <script src="includes/midi/audioDetect.js" type="text/javascript"></script>
+  <script src="includes/midi/player.js" type="text/javascript"></script>
+  <script src="includes/shim/Base64.js" type="text/javascript"></script>
+  <script src="includes/shim/Base64binary.js" type="text/javascript"></script>
+
+
+  <!-- Wrappers -->
+  <script type="text/javascript" src="soundPlayer.js"></script>
+
+  <!-- Original implementation (chloe's)
+  // <script type="text/javascript" src="mainscript.js"></script> -->
+  <script type="text/javascript" src="listeningScript.js"></script>
+
+</head>
+
+<body>
+  <!-- Modal form -->
+  <div id="backdrop"></div>
+  <div id="dialog-form" title="Hello user">
+    <form>
+      <fieldset>
+        <li>Hello! Please read the consent form below</li>
+        <li class="scrollbox">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
+        tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
+        quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
+        consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
+        cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
+        proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+        Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
+        tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
+        quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
+        consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
+        cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
+        proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+        </li>
+        <li>
+          <label class="modal-label" for="name">Name</label>
+          <input class="modal-input" type="text" name="name" id="name" value="Jane Smith"></input>
+        </li>
+        <li>
+          <label class="modal-label" for="email">Email</label>
+          <input class="modal-input" type="text" name="email" id="email" value="jane@smith.com"></input>
+        </li>
+        <li>
+          <label class="modal-label" for="pid">User ID</label>
+          <input class="modal-input" type="text" name="pid" id="pid" value="USERIDTEST"></input>
+        </li>
+      </fieldset>
+      <div id="form-btn">START</div>
+    </form>
+  </div>
+ 
+  <div class="row btn-box">
+    <span id="l-play-btn">
+      <img alt="Play" src="img/playicon.svg"></img>
+    </span>
+    <span id="l-next-btn">
+      <img alt="Next" src="img/nexticon.svg"></img>
+      <p>Next</p>
+    </span>
+  </div>
+  <div class="row inter">
+    <span id="pos">Set n.<span id="current-pos">20</span><span id="total-pos">/25</span></span>
+  </div>
+  <div class="row score">
+      <li class="score-label">Score:</li>
+      <li class="score-item">1</li>
+      <li class="score-item">2</li>
+      <li class="score-item">3</li>
+      <li class="score-item">4</li>
+      <li class="score-item">5</li>
+      <li class="score-item">6</li>
+      <li class="score-item">7</li>
+  </div>
+  <div class="row score">
+      <li class="score2-label">or.. Score: </li>
+      <li class="score2-item"><img alt="1" src="img/smiley1.svg"></img></li>
+      <li class="score2-item"><img alt="2" src="img/smiley2.svg"></img></li>
+      <li class="score2-item"><img alt="3" src="img/smiley3.svg"></img></li>
+      <li class="score2-item"><img alt="4" src="img/smiley4.svg"></img></li>
+      <li class="score2-item"><img alt="5" src="img/smiley5.svg"></img></li>
+  </div>
+
+</body>
+</html>

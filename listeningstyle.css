@@ -1,0 +1,128 @@
+body {
+	background-color: #000;
+	width: 100%;
+	color: #fff;
+	font-size: 50px;
+}
+
+.btn-box {
+	margin:auto;
+	padding-top: 50px;
+	text-align: center;
+}
+
+#l-play-btn {
+	margin-left: 100px;
+	margin-right: 100px;
+	display: inline-block;
+}
+
+#l-play-btn img, #l-next-btn img {
+	height: 250px;
+	width: 250px;
+}
+
+.inter {
+	height: 200px;
+	text-align: center;
+}
+
+.score {
+	color: #fff;
+	margin-top: 40px;
+}
+
+.score > li {
+	vertical-align: top;
+	font-size: 70px;
+	display: inline-block;
+	padding: 30px;
+	vertical-align: bottom;
+}
+
+
+.score-item {
+	background-color: #333;
+}
+
+.score-item:active {
+	background-color: #fff;
+}
+
+#score-label {
+	text-align: center;
+}
+
+#pos{
+	width: auto;
+	font-size: 50px;
+	color: #fff;
+}
+
+#current-pos {
+	font-size: 70px;
+}
+
+/*modal*/
+	#backdrop {
+		position: absolute;
+		top: 0;
+		left: 0;
+		width: 100%;
+		height: 100%;
+		background-color: #000;
+		opacity: 0.8;
+		display: none;
+	}
+
+	#dialog-form {
+		display: none;
+		position: absolute;
+		width: 600px;
+		height: auto;
+		top: 100px;
+		left: 250px;
+		background-color: #fff;
+		text-align: right;
+	}
+
+	#dialog-form > form {
+		color: #000;
+		font-size: 24px;
+		list-style: none;
+		padding: 30px;
+	}
+
+	.scrollbox {
+		font-size: 14px;
+		height: 100px;
+		overflow-y: scroll;
+		background-color: #ddd;
+		margin-bottom: 20px;
+		margin-top: 10px;
+		padding: 5px;
+	}
+
+	.modal-label {
+		margin-right: 10px;
+		font-weight: bold;
+	}
+
+	.modal-input {
+		font-size: 24px;
+		padding: 5px;
+	}
+
+	#form-btn {
+		margin: 15px;
+		font-size: 36px;
+		color: #fff;
+		background-color: #000;
+		width: 95%;
+		text-align: center;
+	}
+
+.score2-item > img {
+	width: 100px;
+}
+
