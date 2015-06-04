@@ -12,10 +12,14 @@ var soundClasses;
 var useMp3 = false;
 
 
+var localAudioFilePath = "samples/";
+
+
 var loadAll = function(){
 	
 	loadPlayer();
 	loadMidiIdx(0);
+	checkLocalSample();
 	midiMap = new Array();
 	midiMap[0]="Kick"
 	midiMap[1]="Snare"
@@ -91,14 +95,56 @@ var getSoundPath = function(type ,_fname){
 	/* otherwise error when trying to reset midimap to selectedSample
 	on mouseout a not selected sample
 	(when rhythmIsOn and mouseovered samples are played on rhythm instead of the selected one) */
-
+	
 
 	if (useMp3){
-		return "samples/mp3/" + type + "/"+ fname+'.mp3'
+		return localAudioFilePath+"mp3/" + type + "/"+ fname+'.mp3'
 	}
 	else{
-		return "samples/wav/" + type + "/"+ fname+'.wav'
+		return localAudioFilePath+"wav/" + type + "/"+ fname+'.wav'
 	}
+
+}
+var checkLocalSample = function(){
+	
+
+	console.log(Object.keys(audioFiles)[0],"lala",audioFiles[Object.keys(audioFiles)[0]][0]);
+	var oldPlayer = soundManager.getSoundById('testPlayer');
+	if(oldPlayer!=undefined){
+	oldPlayer.destruct();
+	}
+	
+	var testPlayer = new soundManager.createSound({
+		   id: "testPlayer",
+		   url: getSoundPath(Object.keys(audioFiles)[0],audioFiles[Object.keys(audioFiles)[0]][0]),
+		   volume: 70,
+		   multiShot: false,
+		   autoLoad: true,
+		   stream: true,
+		   onload:function(e){
+		   	if(e===false){
+
+		   		 var choosefile = function(name){
+	    			var chooser = document.querySelector(name)
+	    			chooser.setAttribute("style","display:true;");
+	    			console.log("showing input dialog ")
+	    			chooser.addEventListener("change", function(event) {
+	    				console.log(event);
+	      				console.log(event.target.value);
+	      				 localAudioFilePath = "file://"+event.target.value;
+	      				 checkLocalSample();
+
+	    			}, false);
+    			}
+
+    			choosefile('#fileDialog');
+			}
+			else{
+				console.log("found");
+				document.querySelector('#fileDialog').setAttribute("style","display:none;");
+			}
+		   }
+		 });
 
 }
 var setMidiMap = function(type,fname){
@@ -222,8 +268,6 @@ var loadMidi = function(midiName){
 		var runningCount = [0,0,0,0];
 
 		for( var i = 0 ; i < midi.data.length ; i++){
-			//
-
 			var audioType = midi.data[i][0].event["channel"];
 			if(audioType<4){
 				if (midi.data[i][0].event["subtype"] == "noteOn"  ){
@@ -256,13 +300,8 @@ var loadMidi = function(midiName){
 		}
 		// hack as midi doesent include loop length info : take the next 4 beat roundness
 		loopLength = (Math.ceil((lastnoteOff - 1)/(4.0*midi.ticksPerBeats))  ) *(4*midi.ticksPerBeats);
-		
 		lastSilence = loopLength - runningCount[lastNoteType]  ;
 		
-		
-		
-		
-			
 	})	
 
 }
