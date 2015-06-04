@@ -7,13 +7,15 @@ var sounds;
 var explorationPlayer;
 // array storing  sounds Classes (Kick,HH,....)
 var soundClasses;
+// actual mp3 have 50ms silence in the begining due to the converter (sox)
+// for now it's preferable to use wave files
 var useMp3 = false;
 
 
 var loadAll = function(){
-	bpm = 80;
+	
 	loadPlayer();
-	loadMidi("jazz");
+	loadMidiIdx(0);
 	midiMap = new Array();
 	midiMap[0]="Kick"
 	midiMap[1]="Snare"
@@ -198,14 +200,17 @@ else{
 
 
 
-
-		
-
+var loadMidiIdx = function(i){
+	var midiToLoad= Object.keys(midiFiles)[i%Object.keys(midiFiles).length] ;
+	 loadMidi(midiToLoad) ;
+	 console.log("loading midi : "+midiToLoad)
+}
+var getNumMidiFiles = function(){return midiFiles.key().length;}
 
 var loadMidi = function(midiName){
-	midi.loadFile('data:audio/midi;base64,'+midiFiles[midiName],function(){
-		
-		
+	
+	midi.loadFile('data:audio/midi;base64,'+midiFiles[midiName].data,function(){
+		bpm = midiFiles[midiName].bpm;
 		noteOn = new Array();
 		noteOff = new Array();
 		for(var i = 0 ; i < 4 ; i ++){noteOn[i] = new Array();noteOff[i] = new Array();}
@@ -227,6 +232,7 @@ var loadMidi = function(midiName){
 					note.audioType =audioType;
 					note.idx = nIdx[note.audioType];
 					note.deltaTime = deltaCount[note.audioType] + midi.data[i][0].event["deltaTime"];
+					note.startTime
 					runningCount[note.audioType]+= note.deltaTime ;
 					note.velocity = midi.data[i][0].event["velocity"];
 					deltaCount[note.audioType]=0;
@@ -252,6 +258,7 @@ var loadMidi = function(midiName){
 		loopLength = (Math.ceil((lastnoteOff - 1)/(4.0*midi.ticksPerBeats))  ) *(4*midi.ticksPerBeats);
 		
 		lastSilence = loopLength - runningCount[lastNoteType]  ;
+		
 		
 		
 		
