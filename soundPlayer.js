@@ -106,9 +106,7 @@ var getSoundPath = function(type ,_fname){
 
 }
 var checkLocalSample = function(){
-	
 
-	console.log(Object.keys(audioFiles)[0],"lala",audioFiles[Object.keys(audioFiles)[0]][0]);
 	var oldPlayer = soundManager.getSoundById('testPlayer');
 	if(oldPlayer!=undefined){
 	oldPlayer.destruct();
@@ -123,25 +121,11 @@ var checkLocalSample = function(){
 		   stream: true,
 		   onload:function(e){
 		   	if(e===false){
-
-		   		 var choosefile = function(name){
-	    			var chooser = document.querySelector(name)
-	    			chooser.setAttribute("style","display:true;");
-	    			console.log("showing input dialog ")
-	    			chooser.addEventListener("change", function(event) {
-	    				console.log(event);
-	      				console.log(event.target.value);
-	      				 localAudioFilePath = "file://"+event.target.value;
-	      				 checkLocalSample();
-
-	    			}, false);
-    			}
-
-    			choosefile('#fileDialog');
+				localAudioFilePath = "file://"+window.prompt("enter local path for folder (containing wav or mp3 subfolder)\nyou need to grant chrome for local access","");
+	      		checkLocalSample();
 			}
 			else{
 				console.log("found");
-				document.querySelector('#fileDialog').setAttribute("style","display:none;");
 			}
 		   }
 		 });
