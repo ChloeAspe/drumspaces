@@ -20,6 +20,7 @@ var loadAll = function(){
 	loadPlayer();
 	loadMidiIdx(0);
 	checkLocalSample();
+	loadDefaultMidiMap();
 	midiMap = new Array();
 	midiMap[0]="Kick"
 	midiMap[1]="Snare"
@@ -90,13 +91,14 @@ var playOne = function(type,fname){
 var getSoundPath = function(type ,_fname){
 	var fname = "";
 	if(_fname !== undefined) {
-		fname =  _fname.substr(0,_fname.lastIndexOf('.'));
+		var idx = _fname.lastIndexOf('.');
+		if(idx> 0 ){fname =  _fname.substr(0,idx);}
+		else {fname = _fname;}
+	
 	} 
 	/* otherwise error when trying to reset midimap to selectedSample
 	on mouseout a not selected sample
 	(when rhythmIsOn and mouseovered samples are played on rhythm instead of the selected one) */
-	
-
 	if (useMp3){
 		return localAudioFilePath+"mp3/" + type + "/"+ fname+'.mp3'
 	}
@@ -129,6 +131,21 @@ var checkLocalSample = function(){
 			}
 		   }
 		 });
+
+}
+
+
+var loadDefaultMidiMap = function(){
+	
+sounds["Kick"].url = getSoundPath("Default","Kick");
+sounds["Kick"].load();
+sounds["Snare"].url = getSoundPath("Default","Snare");
+sounds["Snare"].load();
+sounds["OpenHH"].url = getSoundPath("Default","OpenHH");
+sounds["OpenHH"].load();
+sounds["ClosedHH"].url = getSoundPath("Default","ClosedHH");
+sounds["ClosedHH"].load();
+
 
 }
 var setMidiMap = function(type,fname){
