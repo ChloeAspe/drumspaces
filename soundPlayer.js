@@ -90,12 +90,14 @@ var playOne = function(type,fname){
 
 var getSoundPath = function(type ,_fname){
 	var fname = "";
+	
 	if(_fname !== undefined) {
+		
 		var idx = _fname.lastIndexOf('.');
 		if(idx> 0 ){fname =  _fname.substr(0,idx);}
 		else {fname = _fname;}
 	
-	} 
+	
 	/* otherwise error when trying to reset midimap to selectedSample
 	on mouseout a not selected sample
 	(when rhythmIsOn and mouseovered samples are played on rhythm instead of the selected one) */
@@ -105,6 +107,9 @@ var getSoundPath = function(type ,_fname){
 	else{
 		return localAudioFilePath+"wav/" + type + "/"+ fname+'.wav'
 	}
+
+
+}
 
 }
 var checkLocalSample = function(){
@@ -136,22 +141,15 @@ var checkLocalSample = function(){
 
 
 var loadDefaultMidiMap = function(){
-	
 sounds["Kick"].url = getSoundPath("Default","Kick");
-sounds["Kick"].load();
 sounds["Snare"].url = getSoundPath("Default","Snare");
-sounds["Snare"].load();
 sounds["OpenHH"].url = getSoundPath("Default","OpenHH");
-sounds["OpenHH"].load();
 sounds["ClosedHH"].url = getSoundPath("Default","ClosedHH");
-sounds["ClosedHH"].load();
-
-
 }
 var setMidiMap = function(type,fname){
-
-	sounds[type].url = getSoundPath(type,fname);//"samples/" + type + "/"+ name;
-	if(fname!="")sounds[type].load();
+if(fname!== undefined){
+	sounds[type].url = getSoundPath(type,fname);
+}
 }
 
 
