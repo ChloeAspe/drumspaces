@@ -10,9 +10,8 @@
   
   <title>Listening and rating</title>
 
-  <!-- <link rel="shortcut icon" href="/favicon.ico"> -->
-  <link rel="stylesheet" href="style.css">
-  <link rel="stylesheet" type="text/css" href="style.css"> 
+  <!-- <link rel="shortcut icon" href="/favicon.ico">-->
+  <link rel="stylesheet" type="text/css" href="style.css">  
   <link rel="stylesheet" type="text/css" href="listeningstyle.css"> 
 
   <script src="http://ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js"></script>
@@ -43,71 +42,66 @@
 
 <body>
   <!-- Modal form -->
-  <div id="backdrop"></div>
-  <div id="dialog-form" title="Hello user">
-    <form>
-      <fieldset>
-        <li>Hello! Please read the consent form below</li>
-        <li class="scrollbox">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
-        tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
-        quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
-        consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
-        cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
-        proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-        Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
-        tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
-        quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
-        consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
-        cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
-        proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-        </li>
-        <li>
-          <label class="modal-label" for="name">Name</label>
-          <input class="modal-input" type="text" name="name" id="name" value="Jane Smith"></input>
-        </li>
-        <li>
-          <label class="modal-label" for="email">Email</label>
-          <input class="modal-input" type="text" name="email" id="email" value="jane@smith.com"></input>
-        </li>
-        <li>
-          <label class="modal-label" for="pid">User ID</label>
-          <input class="modal-input" type="text" name="pid" id="pid" value="USERIDTEST"></input>
-        </li>
-      </fieldset>
-      <div id="form-btn">START</div>
-    </form>
+  <div id="backdrop">
+  <div id="cont-dialog">
+    <div id="dialog-form" title="Hello user">
+      <form>
+        <fieldset>
+          <li>Hello! Please read the consent form below</li>
+          <li class="scrollbox">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
+          tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
+          quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
+          consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
+          cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
+          proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+          Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
+          tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
+          quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
+          consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
+          cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
+          proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+          </li>
+          <li>
+            <label class="modal-label" for="name">Name</label>
+            <input class="modal-input" type="text" name="name" id="ev-name" value="Jane Smith"></input>
+          </li>
+          <li>
+            <label class="modal-label" for="email">Email</label>
+            <input class="modal-input" type="text" name="email" id="ev-email" value="jane@smith.com"></input>
+          </li>
+          <li>
+            <label class="modal-label" for="pid">User ID</label>
+            <input class="modal-input" type="text" name="pid" id="ev-id" value="USERIDTEST"></input>
+          </li>
+        </fieldset>
+        <div id="form-btn">START</div>
+      </form>
+    </div>
   </div>
- 
-  <div class="row btn-box">
-    <span id="l-play-btn">
+ </div>
+
+  <div id="wrap-content">
+  <div class="btn-box">
+    <span id="l-play-btn" class="btn-action">
       <img alt="Play" src="img/playicon.svg"></img>
     </span>
-    <span id="l-next-btn">
+    <span id="l-next-btn" class="btn-action">
       <img alt="Next" src="img/nexticon.svg"></img>
-      <p>Next</p>
     </span>
   </div>
-  <div class="row inter">
+  <div class="inter">
     <span id="pos">Set n.<span id="current-pos">20</span><span id="total-pos">/25</span></span>
   </div>
-  <div class="row score">
+  <ul class="score">
       <li class="score-label">Score:</li>
-      <li class="score-item">1</li>
-      <li class="score-item">2</li>
-      <li class="score-item">3</li>
-      <li class="score-item">4</li>
-      <li class="score-item">5</li>
-      <li class="score-item">6</li>
-      <li class="score-item">7</li>
-  </div>
-  <div class="row score">
-      <li class="score2-label">or.. Score: </li>
-      <li class="score2-item"><img alt="1" src="img/smiley1.svg"></img></li>
-      <li class="score2-item"><img alt="2" src="img/smiley2.svg"></img></li>
-      <li class="score2-item"><img alt="3" src="img/smiley3.svg"></img></li>
-      <li class="score2-item"><img alt="4" src="img/smiley4.svg"></img></li>
-      <li class="score2-item"><img alt="5" src="img/smiley5.svg"></img></li>
-  </div>
-
+      <li class="score-item" data-note="1">1</li>
+      <li class="score-item" data-note="2">2</li>
+      <li class="score-item" data-note="3">3</li>
+      <li class="score-item" data-note="4">4</li>
+      <li class="score-item" data-note="5">5</li>
+      <li class="score-item" data-note="6">6</li>
+      <li class="score-item" data-note="7">7</li>
+  </ul>
+</div>
 </body>
 </html>
