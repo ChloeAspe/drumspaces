@@ -75,7 +75,12 @@
 		taskResult = {
 		 'view': 0,
 		 'pattern': 0,
-		 'selection': {},
+		 'selection': {
+		 	'Kick': "",
+		 	'Snare': "",
+		 	'OpenHH': "",
+		 	'ClosedHH': ""
+		 },
 		 'time': 0, 
 		 'nbSelected':0,
 		 'nbListened':0
@@ -111,9 +116,18 @@ function addBtnHandlers() {
 		var done= confirm("Sure?");
 		if(done===true){
 		  //SAVE SET AND GO TO NEXT TASK
-		  StopMidi();
-		  saveData();
-		  var delay= setTimeout(initTask, 1000);
+		  	var missing="";
+			if(!selectedKick.sName) { missing+="kick "};
+			if(!selectedSnare.sName) { missing+="snare "};
+			if(!selectedOHH.sName) { missing+="open hihat "};
+			if(!selectedCHH.sName) { missing+="closed hihat "};
+			if(missing!=="") {
+				alert("Please select one sample in each category. Missing the "+missing);
+			} else {
+				StopMidi();
+		  		saveData();
+		  		var delay= setTimeout(initTask, 1000);
+		  	}
 		  //initTask();
 		}
 		//else do nothing and continue current task
@@ -153,6 +167,9 @@ function addBtnHandlers() {
 	var startTask = function() {
 		interval=setInterval(count, 1000); //set chrono
 		loadView(viewType);
+		loadDefaultMidiMap();
+		loadMidiIdx(sequence[taskNo][1]);
+
 	}
 
 
@@ -224,7 +241,15 @@ function addBtnHandlers() {
 				if(rhythmIsOn===true) {
 					StopMidi();
 				}
-				saveData();
+				// check each category has a sample selected
+				if(!selectedKick.sName || !selectedSnare.sName || !selectedOHH.sName || !selectedCHH.sName) {
+					// if one is missing, restart task
+					alert("Restarting task num. "+taskNo);
+					taskNo=taskNo-1; // because initTask increments taskNo
+				} else {
+					// else save and go to next
+					saveData();
+				}
 				initTask();
 			}
 		}
