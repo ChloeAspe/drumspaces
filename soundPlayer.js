@@ -53,7 +53,7 @@ var loadPlayer = function(){
 		   url: "",//"samples/" + type + "/"+ audioFiles[type][0],
 		   volume: 70,
 		   multiShot: true,
-		   autoLoad: true,
+		   autoLoad: false,
 		   autoPlay : false,
 		   stream: true
 		 });
@@ -148,7 +148,9 @@ sounds["ClosedHH"].url = getSoundPath("Default","ClosedHH");
 }
 var setMidiMap = function(type,fname){
 if(fname!== undefined){
+	// sounds[type].stop();
 	sounds[type].url = getSoundPath(type,fname);
+	sounds[type].load();
 }
 }
 
