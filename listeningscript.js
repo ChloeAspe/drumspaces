@@ -1,14 +1,12 @@
 var setlist=[];
-var object1={"view":3,"pattern":1,"selection":{"Kick":"Kick Mendon 1.wav","Snare":"Snare Sahara 2.wav","OpenHH":"OpenHH Porter 3.wav","ClosedHH":"ClosedHH Runaround 1.wav"},"time":10,"nbSelected":4,"nbListened":25}
-var object2={"view":1,"pattern":2,"selection":{"Kick":"Kick Airbase 2.wav","Snare":"Snare Backwoods 2.wav","OpenHH":"OpenHH 909.wav","ClosedHH":"ClosedHH 909X 2.wav"},"time":14,"nbSelected":4,"nbListened":8}
-var object3={"view":1,"pattern":3,"selection":{"Kick":"Kick Alley 1.wav","Snare":"Snare Baller 1.wav","OpenHH":"OpenHH 909 3.wav","ClosedHH":"ClosedHH 808.wav"},"time":14,"nbSelected":4,"nbListened":12}
-setlist=[object1, object2, object3];
 var currentPos=0;
 var currentSet={};
+var setNb;
 var currentScore=0;
-var setNb=setlist.length;
+var currentTID = 0; // id of taskresult being evaluated 
 var playing=false;
-var expeResult={};
+var evalResult={};
+var evaluatorID=0;
 
 function addBtnHandlers() {
 	$("#l-play-btn").click(function(){
@@ -37,7 +35,12 @@ function addBtnHandlers() {
 		}
 	});
 
+	$("#form-btn").click(function() { // "START" btn (participant form)
+		closeModal();
+		recordEvaluator();
+	})
 
+	
 	$(".score-item").hover(function() {
 		if(currentScore===0) {
 			colorScore(this, $(this).text());
@@ -47,31 +50,23 @@ function addBtnHandlers() {
 			colorScore(this, 15);
 		}
 	}).click(function() {
-		if(currentScore!=$(this).text()) {
-			currentScore=$(this).text();
-			expeResult.setlist[currentPos].score=currentScore;
-			colorScore(this, currentScore);
+		if(currentScore!=$(this).data("note")) {
+			currentScore=$(this).data("note");
+			evalResult.setlist[currentPos].score=currentScore;
+			recordScore();
 		}
 	});
 
-	$("#form-btn").click(function() {
-		var name= $("#name").val();
-		var email = $("#email").val();
-		var pid = $("#pid").val();
-		initExpe(name, email, pid);
-
-	});
 }
 
-function initExpe(name, email, pid) { // whatever info is needed from the user
-	expeResult = {
+function initEval(name, email, pid) { // save whatever info is needed from the user
+	evalResult = {
 		'participant' : 
 			{'name': name,
 			'email': email,
 			'pid': pid },
 		'setlist' : setlist
 	};
-	closeModal();
 }
 
 function displayPos(pos) {
@@ -80,8 +75,9 @@ function displayPos(pos) {
 
 function nav(list, direction) { // direction: 1=next, -1=previous
 	currentPos+=direction;
-	currentSet=list[currentPos].selection;
+	currentSet=list[currentPos];
 	console.log(currentSet);
+	currentTID=currentSet.TID; // database ID of the taskresult being evaluated
 	displayPos(currentPos+1);
 	setTheMidi();
 }
@@ -89,7 +85,7 @@ function nav(list, direction) { // direction: 1=next, -1=previous
 
 function colorScore(item, score) { 
 	var color;
-	$(".score-item").css({"background-color": "#333"});
+	$(".score-item").css({"background-color": "#000"});
 	switch(score) {
 		case '1': color="#de4b2a"; break;
 		case '2': color="#ea6834"; break;
@@ -98,31 +94,80 @@ function colorScore(item, score) {
 		case '5': color="#f5f337"; break;
 		case '6': color="#baf134"; break;
 		case '7': color="#88ea34"; break;
-		default : color="#333"; break;
+		default : color="#000"; break;
 	}
 	$(item).css({"background-color": color});
 }
 
-function clearScene() {
+function clearScene() {// reinitialize score at each new listening
 	currentScore=0;
-	$(".score-item").css({"background-color": "#333"});
+	$(".score-item").css({"background-color": "#000"});
 }
 
 function setTheMidi() {
-	setMidiMap("Kick", currentSet.Kick);
-	setMidiMap("Snare", currentSet.Snare);
-	setMidiMap("OpenHH", currentSet.OpenHH);
-	setMidiMap("ClosedHH", currentSet.ClosedHH);
+	setMidiMap("Kick", currentSet.KICK);
+	setMidiMap("Snare", currentSet.SNARE);
+	setMidiMap("OpenHH", currentSet.OPENHH);
+	setMidiMap("ClosedHH", currentSet.CLOSEDHH);
 }
 
 function helloUser() { // open user form
 	$("#backdrop").css("display", "block");
-	$("#dialog-form").css("display", "block");  
 }
 
 function closeModal () { // close user form
 	$("#backdrop").css("display", "none");
 	$("#dialog-form").css("display", "none");
+}
+
+function recordEvaluator() { // insert new evaluator in database
+	// get values from form
+	var evName = $("#ev-name").val();
+	var evEmail = $("#ev-email").val();
+
+	$.ajax({
+	  type: 'POST', 
+	  url: 'includes/php/insertEvaluator.php', 
+	  dataType:'json',
+	  data: {
+	    name: evName,
+	    email: evEmail
+	  }, 
+	  success: function(data, textStatus, jqXHR) {
+
+	    setlist=data.setList; // get the list of sets to be evaluated by this evaluator
+	    setNb=setlist.length; 
+		$('#total-pos').text("/"+setNb);
+
+		evaluatorID = data.evId; // get evaluator ID in database
+	    initEval(evName, evEmail, evaluatorID); // start evaluation
+	    nav(setlist, 0);
+
+	  },
+	  error: function(jqXHR, textStatus, errorThrown) {
+	    console.log(textStatus);
+	    alert("failed evaluator creation in DB");
+	  }
+	});
+}
+
+function recordScore() { // record given score in database (evalresults)
+	$.ajax({
+	  type: 'POST', 
+	  url: 'includes/php/insertScore.php', 
+	  //dataType:'json',
+	  data: {
+	  	score: currentScore,
+	    eid: evaluatorID,
+	    tid: currentTID
+	  }, 
+	  success: function(data, textStatus, jqXHR) {
+	  },
+	  error: function(jqXHR, textStatus, errorThrown) {
+	    alert("SCORE FAIL");
+	    console.log(textStatus);
+	  }
+	});
 }
 
 function thankYou() {
@@ -136,8 +181,8 @@ function thankYou() {
 
 window.onload = function() {
 	$('#current-pos').text(1);
-	$('#total-pos').text("/"+setNb);
 	addBtnHandlers();
 	helloUser();
-	nav(setlist, 0);
 };
+
+

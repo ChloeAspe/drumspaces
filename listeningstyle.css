@@ -1,48 +1,68 @@
 body {
 	background-color: #000;
-	width: 100%;
 	color: #fff;
-	font-size: 50px;
+	font-size: 1em;
 }
+
+img{
+	max-width: 100%;
+	display:block;
+}
+
+#wrap-content{
+	margin:3em auto 0 auto;
+}
+
 
 .btn-box {
-	margin:auto;
-	padding-top: 50px;
+	margin: 0 auto;
+	padding-top: 2em;
 	text-align: center;
 }
 
-#l-play-btn {
-	margin-left: 100px;
-	margin-right: 100px;
+.btn-action {
 	display: inline-block;
+	vertical-align: top;
+	width: 10%;
 }
-
-#l-play-btn img, #l-next-btn img {
-	height: 250px;
-	width: 250px;
+.btn-action>img{
+	width: 70%;
+	cursor:pointer;
 }
-
+#l-next-btn{
+	position: relative;
+}
+#l-next-btn:after{
+	content:"Next";
+	position:absolute;
+	top:3.7em;
+	right:0;
+	z-index:10;
+}
 .inter {
-	height: 200px;
 	text-align: center;
+	margin: 2em 0;
 }
 
 .score {
 	color: #fff;
-	margin-top: 40px;
+	text-align: center;
 }
 
 .score > li {
 	vertical-align: top;
-	font-size: 70px;
+	font-size: 3em;
 	display: inline-block;
 	padding: 30px;
 	vertical-align: bottom;
 }
-
+.score > li>img{
+	cursor:pointer;
+}
 
 .score-item {
-	background-color: #333;
+	cursor: pointer;
+	background-color: #000;
 }
 
 .score-item:active {
@@ -55,35 +75,38 @@ body {
 
 #pos{
 	width: auto;
-	font-size: 50px;
+	font-size: 3em;
 	color: #fff;
 }
 
 #current-pos {
-	font-size: 70px;
-}
+	font-size: 1.5em;
+} 
 
 /*modal*/
 	#backdrop {
 		position: absolute;
+		z-index:10000;
 		top: 0;
 		left: 0;
 		width: 100%;
 		height: 100%;
-		background-color: #000;
-		opacity: 0.8;
+		height:100vh;
+		background-color: rgba(0,0,0,0.8);
 		display: none;
 	}
-
+	#cont-dialog{
+		display:flex;
+		min-height: 100%;
+		min-height: 100vh;
+		align-content:center;
+	}
 	#dialog-form {
-		display: none;
-		position: absolute;
 		width: 600px;
 		height: auto;
-		top: 100px;
-		left: 250px;
 		background-color: #fff;
 		text-align: right;
+		margin: 0 auto;
 	}
 
 	#dialog-form > form {
@@ -125,4 +148,14 @@ body {
 .score2-item > img {
 	width: 100px;
 }
+
+.score-hover {
+	display: none;
+}
+
+.score-selected {
+	display: none;
+}
+
+
 
