@@ -53,7 +53,6 @@ function addBtnHandlers() {
 		if(currentScore!=$(this).data("note")) {
 			currentScore=$(this).data("note");
 			evalResult.setlist[currentPos].score=currentScore;
-			recordScore();
 		}
 	});
 
@@ -74,12 +73,13 @@ function displayPos(pos) {
 }
 
 function nav(list, direction) { // direction: 1=next, -1=previous
+	recordScore(currentScore, evaluatorID, currentTID);
 	currentPos+=direction;
 	currentSet=list[currentPos];
 	console.log(currentSet);
 	currentTID=currentSet.TID; // database ID of the taskresult being evaluated
 	displayPos(currentPos+1);
-	setTheMidi();
+	setTheMidi(currentSet);
 }
 
 
@@ -104,11 +104,12 @@ function clearScene() {// reinitialize score at each new listening
 	$(".score-item").css({"background-color": "#000"});
 }
 
-function setTheMidi() {
-	setMidiMap("Kick", currentSet.KICK);
-	setMidiMap("Snare", currentSet.SNARE);
-	setMidiMap("OpenHH", currentSet.OPENHH);
-	setMidiMap("ClosedHH", currentSet.CLOSEDHH);
+function setTheMidi(set) {
+	console.log(set.KICK);
+	setMidiMap("Kick", set.KICK);
+	setMidiMap("Snare", set.SNARE);
+	setMidiMap("OpenHH", set.OPENHH);
+	setMidiMap("ClosedHH", set.CLOSEDHH);
 }
 
 function helloUser() { // open user form
@@ -151,15 +152,15 @@ function recordEvaluator() { // insert new evaluator in database
 	});
 }
 
-function recordScore() { // record given score in database (evalresults)
+function recordScore(p_score, p_eid, p_tid) { // record given score in database (evalresults)
 	$.ajax({
 	  type: 'POST', 
 	  url: 'includes/php/insertScore.php', 
 	  //dataType:'json',
 	  data: {
-	  	score: currentScore,
-	    eid: evaluatorID,
-	    tid: currentTID
+	  	score: p_score,
+	    eid: p_eid,
+	    tid: p_tid
 	  }, 
 	  success: function(data, textStatus, jqXHR) {
 	  },

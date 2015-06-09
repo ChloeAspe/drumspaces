@@ -12,16 +12,16 @@
      
 
     for(var i=0; i<sampleListBonsai.length; i++){ // go through kick/snare/ohh/chh list
-      currentName = sampleListBonsai[i].sName;
+      currentName = sampleListBonsai[i].shortName;
       var line = new Group();
-      line.rect  = new Rect(20, placeY, stage.options.width-20, 29).addTo(stage);
-      line.playbackRect  = new Rect(0, placeY, 20, 29).addTo(line);
-      line.circle = new Circle(10, placeY+15, radius).addTo(line);
+      line.rect  = new Rect(20, placeY, stage.options.width-20, 19).addTo(stage);
+      line.playbackRect  = new Rect(0, placeY, 20, 19).addTo(line);
+      line.circle = new Circle(10, placeY+10, radius).addTo(line);
       line.sParent = sampleListBonsai[i]; // to access the rects parent sample
       line.rect.fill('lightgray').stroke('transparent', 0);
       line.playbackRect.fill('lightgray');
       line.circle.fill('darkgray');
-      line.rectText = new Text(currentName).attr({x: 30, y:(placeY+10), textAlign: 'left', textFillColor: 'black', fontSize: '20', fontFamily: 'helvetica', selectable: 'false'}).addTo(stage);
+      line.rectText = new Text(currentName).attr({x: 30, y:(placeY+5), textAlign: 'left', textFillColor: 'black', fontSize: '14', fontFamily: 'helvetica', selectable: 'false'}).addTo(stage);
       line.addTo(stage)
       .on('click', function(e){ 
         if(this.sParent.sName!=nowSelected.sParent.sName) { // if clicked sample is not already selected, select it
@@ -30,8 +30,8 @@
           nowSelected= this;
           nowSelected.circle.fill('#FF6347');
           if(prevSelected.attr) { // if there was a previously selected sample, unselect it
-            prevSelected.circle.animate('1s', { fillColor: '#FF9F47' });
-            if(prevprevSelected.attr) {
+            prevSelected.circle.animate('1s', { fillColor: '#DEA297' });
+            if(prevprevSelected.attr && prevprevSelected!==nowSelected) {
               prevprevSelected.circle.animate('1s', { fillColor: 'darkgray' });
             }
             stage.sendMessage('deselectSample', {sName: prevSelected.sParent.sName});// useless
@@ -56,14 +56,14 @@
           if(this.sParent.sName == nowSelected.sParent.sName) {
             this.circle.fill('#FF6347'); 
           } else if(this.sParent.sName == prevSelected.sParent.sName) {
-            this.circle.fill('#FF9F47');
+            this.circle.fill('#DEA297');
           } else{
             this.circle.fill('darkgray');
             stage.sendMessage('mouseOut', {sName: this.sParent.sName}); //so that it is removed from rhythm
           }
       });
 
-      placeY=placeY+30;
+      placeY=placeY+20;
     } // end forloop on list
 
 

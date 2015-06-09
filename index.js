@@ -22,9 +22,9 @@ function getSampleObjects(jsonData,type){
 }
 
 // constants
-var RADIUS = 6;
+var RADIUS = 4;
 var canvasDim = new Object();
-canvasDim.x = 250
+canvasDim.x = 350
 canvasDim.y =500
 
 // VIEWTYPE : changes between the 3 tasks, random order

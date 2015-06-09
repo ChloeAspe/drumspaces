@@ -9,7 +9,7 @@
 	var MAX_TASKTIME = 300;
 	
 	var sequence = [ // ordered sequence of [view, rhythm pattern]
-		[3, 1],
+		[1, 1],
 		[1, 2],
 		[1, 3],
 		[2, 4],
@@ -135,16 +135,18 @@ function addBtnHandlers() {
 
 	var muteType;
     $(".mute-btn").click(function() {
-      muteType = $(this).attr("alt");
-      if($(this).attr("src")=="img/mutebtn.svg") {
+      muteType = $(this).data("sname");
+      if($(this).data("mutestate")=="yes") {
         // UNMUTE KICK/SNARE/... in rhythm
         console.log("unmute " + muteType);
-        $(this).attr("src", "img/unmute.svg");
+        $(this).data("mutestate", "no");
+        $(this).text("MUTE");
         setMuted(muteType, false);
       } else {
         // MUTE KICK/SNARE/... in rhythm
         console.log("mute " + muteType);
-        $(this).attr("src", "img/mutebtn.svg");
+        $(this).data("mutestate", "yes");
+        $(this).text("UNMUTE");
         setMuted(muteType, true);
       }
     });

@@ -25,8 +25,8 @@
           nowSelected= this;
           nowSelected.fill('#FF6347');
           if(prevSelected.attr) { // if there was a previously selected sample, unselect it
-            prevSelected.animate('1s', { fillColor: '#FF9F47' });
-            if(prevprevSelected.attr) {
+            prevSelected.animate('1s', { fillColor: '#DEA297' });
+            if(prevprevSelected.attr && prevprevSelected!==nowSelected) {
               prevprevSelected.animate('1s', { fillColor: 'gray' });
             }
             stage.sendMessage('deselectSample', {sName: prevSelected.sParent.sName}); // useless
@@ -60,7 +60,7 @@
           if(this.sParent.sName == nowSelected.sParent.sName) {
             this.fill('#FF6347');
           } else if(this.sParent.sName == prevSelected.sParent.sName) {
-            this.fill('#FF9F47');
+            this.fill('#DEA297');
           } else{
             this.fill('gray');
             stage.sendMessage('mouseOut', {sName: this.sParent.sName});

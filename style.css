@@ -73,13 +73,13 @@ body{
 	position: relative;
 	max-width: 512px;
 	min-width: 320px;
-	max-height: 300px;
+	max-height: 400px;
 	margin: 0 auto;
 }
 
 .drumspace {
 	width: 500px;
-	height:280px;
+	height:350px;
 	margin-top: 20px;
 	font-size: 60%;
 }
@@ -108,6 +108,7 @@ body{
 	width: 120px;
 	height: 120px;
 	top:50%;
+	z-index: 1000;
 	margin-top: -60px;
 	left: 50%;
 	margin-left: -60px;
@@ -220,12 +221,24 @@ display: block;
 }
 
 .drumspace.listview > div {
-	height: 14000px;
+	height: 10000px;
 }
 
 .mute-btn {
-	vertical-align: text-top;
-	width: 30px;
+	vertical-align: middle;
+	background-color: #FF9F47;
+	border-radius: 10%;
+	padding: 2px 5px;
+	cursor: pointer;
+	width: 60px;
 	height: 30px;
 	margin-left: 20px;
+	font-size: 0.5em;
 }
+
+.mute-btn:hover {
+	background-color: darkorange;
+}
+
+
+;

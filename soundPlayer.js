@@ -19,7 +19,7 @@ var loadAll = function(){
 	
 	loadPlayer();
 	loadMidiIdx(0);
-	checkLocalSample();
+	//checkLocalSample();
 	loadDefaultMidiMap();
 	midiMap = new Array();
 	midiMap[0]="Kick"
