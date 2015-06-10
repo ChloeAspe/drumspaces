@@ -30,7 +30,9 @@ var loadAll = function(){
 
 	window.addEventListener("keypress", function(e){
 		if(e.keyCode == 32){
-			toggleMidiPlayBack()};
+			// toggleMidiPlayBack()
+			$("#play-btn").click();
+		};
 	});
 
 	MutedGroup["Kick"] = false;
