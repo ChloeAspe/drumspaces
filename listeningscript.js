@@ -73,7 +73,9 @@ function displayPos(pos) {
 }
 
 function nav(list, direction) { // direction: 1=next, -1=previous
-	recordScore(currentScore, evaluatorID, currentTID);
+	if(currentTID!==0) { // do not record on init
+		recordScore(currentScore, evaluatorID, currentTID);
+	}
 	currentPos+=direction;
 	currentSet=list[currentPos];
 	console.log(currentSet);

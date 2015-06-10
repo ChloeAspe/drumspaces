@@ -226,18 +226,19 @@ display: block;
 
 .mute-btn {
 	vertical-align: middle;
-	background-color: #FF9F47;
+	background-color: #555555;
 	border-radius: 10%;
+	box-shadow: 1em #000;
 	padding: 2px 5px;
 	cursor: pointer;
-	width: 60px;
+	width: 100px;
 	height: 30px;
-	margin-left: 20px;
+	margin-left: 35px;
 	font-size: 0.5em;
 }
 
 .mute-btn:hover {
-	background-color: darkorange;
+	background-color: #aaa;
 }
 
 

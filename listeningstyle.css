@@ -103,10 +103,10 @@ img{
 	}
 	#dialog-form {
 		width: 600px;
-		height: auto;
+		height: 450px;
 		background-color: #fff;
 		text-align: right;
-		margin: 0 auto;
+		margin: 50px auto;
 	}
 
 	#dialog-form > form {
