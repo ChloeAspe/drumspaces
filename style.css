@@ -50,6 +50,7 @@ body{
 .pane {
 	display: table-cell;
 	width: 490px;
+	height: 400px;
 	margin: 0;
 	font-size: 30px;
 	background-color: #000;
@@ -116,6 +117,7 @@ body{
 	-webkit-box-shadow: 5px 5px 40px 30px rgba(0,0,0,0.87);
 	-moz-box-shadow: 5px 5px 40px 30px rgba(0,0,0,0.87);
 	box-shadow: 5px 5px 40px 30px rgba(0,0,0,0.87);
+	cursor: pointer;
 }
 
 #play-btn p {
@@ -132,6 +134,7 @@ body{
 	vertical-align: middle;
 	margin: 0px;
 	padding: 0px;
+	cursor: pointer;
 }
 
 #done-btn {
@@ -159,6 +162,7 @@ body{
 	background-color: #FF6347;
 	color: #fff;
 	text-align: center;
+	cursor: pointer;
 }
 
 .btn:hover {
