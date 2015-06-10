@@ -140,13 +140,15 @@ function addBtnHandlers() {
         // UNMUTE KICK/SNARE/... in rhythm
         console.log("unmute " + muteType);
         $(this).data("mutestate", "no");
+        $(this).closest("h1").css("color", "#fff");
         $(this).text("MUTE").css({"margin-left":"35px"});
         setMuted(muteType, false);
       } else {
         // MUTE KICK/SNARE/... in rhythm
         console.log("mute " + muteType);
         $(this).data("mutestate", "yes");
-        $(this).text("UNMUTE").css({"margin-left":"15px"});
+        $(this).closest("h1").css("color", "#aaa");
+        $(this).text("UNMUTE").css({"margin-left":"15px", "color":"#fff"});
         setMuted(muteType, true);
       }
     });
