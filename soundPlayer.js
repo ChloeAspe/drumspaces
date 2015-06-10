@@ -32,6 +32,7 @@ var loadAll = function(){
 		if(e.keyCode == 32){
 			// toggleMidiPlayBack()
 			$("#play-btn").click();
+			e.preventDefault();
 		};
 	});
 

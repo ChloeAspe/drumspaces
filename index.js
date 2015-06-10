@@ -123,7 +123,7 @@ canvasDim.y =500
         selectedKick = data;
         if($.inArray(selectedKick.sName, wasSelected)===-1) {
           wasSelected.push(selectedKick.sName);
-          nbSelected+=1;
+          nbSelected.Kick+=1;
         }
       }).on('message:mouseOver',function(data) {
         if(rhythmIsOn == true) { // if rhythm is On, replace selected CHH
@@ -135,7 +135,7 @@ canvasDim.y =500
         }
         if($.inArray(data.sName, wasListened)===-1) {
           wasListened.push(data.sName);
-          nbListened+=1;
+          nbListened.Kick+=1;
         }
       }).on('message:mouseOut', function(data) {
         if(rhythmIsOn == true) { // if rhythm On, come back to selected CHH
@@ -147,7 +147,10 @@ canvasDim.y =500
       }).on('message:rhythmUnmute',function(data) {
         setMuted("Kick",false);
       });
-    });
+    }).on('key', function(e) {
+        console.log("blocked keypress");
+        e.preventDefault();
+    })
 
     snareBonsai.on('load', function() {
       snareBonsai.on('message:selectSample', function(data) {
@@ -156,7 +159,7 @@ canvasDim.y =500
         selectedSnare = data;
         if($.inArray(selectedSnare.sName, wasSelected)===-1) {
           wasSelected.push(selectedSnare.sName);
-          nbSelected+=1;
+          nbSelected.Snare+=1;
         }
       }).on('message:mouseOver',function(data) {
         if(rhythmIsOn == true) { // if rhythm is On, replace selected CHH
@@ -168,7 +171,7 @@ canvasDim.y =500
         }
         if($.inArray(data.sName, wasListened)===-1) {
           wasListened.push(data.sName);
-          nbListened+=1;
+          nbListened.Snare+=1;
         }
       }).on('message:mouseOut', function(data) {
         if(rhythmIsOn == true) { // if rhythm On, come back to selected CHH
@@ -189,7 +192,7 @@ canvasDim.y =500
         selectedOHH = data;
         if($.inArray(selectedOHH.sName, wasSelected)===-1) {
           wasSelected.push(selectedOHH.sName);
-          nbSelected+=1;
+          nbSelected.OpenHH+=1;
         }
       }).on('message:mouseOver',function(data) {
         if(rhythmIsOn == true) { // if rhythm is On, replace selected CHH
@@ -201,7 +204,7 @@ canvasDim.y =500
         }
         if($.inArray(data.sName, wasListened)===-1) {
           wasListened.push(data.sName);
-          nbListened+=1;
+          nbListened.OpenHH+=1;
         }
       }).on('message:mouseOut', function(data) {
         if(rhythmIsOn == true) { // if rhythm On, come back to selected CHH
@@ -222,7 +225,7 @@ canvasDim.y =500
         selectedCHH = data;
         if($.inArray(selectedCHH.sName, wasSelected)===-1) {
           wasSelected.push(selectedCHH.sName);
-          nbSelected+=1;
+          nbSelected.ClosedHH+=1;
         }
       }).on('message:mouseOver', function(data) {
         if(rhythmIsOn == true) { // if rhythm is On, replace selected CHH
@@ -232,7 +235,7 @@ canvasDim.y =500
         }
         if($.inArray(data.sName, wasListened)===-1) {
           wasListened.push(data.sName);
-          nbListened+=1;
+          nbListened.ClosedHH+=1;
         }
       }).on('message:mouseOut', function(data) {
         if(rhythmIsOn == true) { // if rhythm On, come back to selected CHH

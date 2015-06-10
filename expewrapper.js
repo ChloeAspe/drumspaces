@@ -3,7 +3,7 @@
 	var expResult, taskResult;
 	var wasSelected, wasListened, nbSelected, nbListened;
 	var expReady, taskReady, taskNo;
-	var interval, time, timeWidth, timelineWidth, proportion, pause, start;
+	var interval, timeplaying, time, timeWidth, timelineWidth, proportion, pause, start;
 	var satisfaction;
 
 	// CONST
@@ -42,7 +42,8 @@
 	}
 
 		// INIT TASK
-	var initTask= function() {
+	var initTask= function(callstart) {
+		console.log("inittask");
 		clearInterval(interval);
 		selectedKick={};
 		selectedSnare={};
@@ -68,10 +69,21 @@
 		viewType=sequence[taskNo][0];
 		console.log("viewtype : "+viewType);
 		time = 0;
+		timeplaying = 0;
 		wasSelected=[];
 		wasListened=[];
-		nbSelected=0;
-		nbListened=0;
+		nbSelected={
+			'Kick':0,
+			'Snare':0,
+			'OpenHH':0,
+			'ClosedHH':0
+		};
+		nbListened={
+			'Kick':0,
+			'Snare':0,
+			'OpenHH':0,
+			'ClosedHH':0
+		};
 		timeWidth = 0;
 		pause = true;
 		taskResult = {
@@ -83,13 +95,16 @@
 		 	'OpenHH': "",
 		 	'ClosedHH': ""
 		 },
-		 'time': 0, 
+		 'time': 0,
+		 'timeplaying':0, 
 		 'nbSelected':0,
 		 'nbListened':0, 
 		 'satisfaction':0
 		};
 		$("#timeline > span").css("background-color", "#34BB62");
-
+		if(callstart===true) {
+			startTask();
+		}
 	}
 
 	//-------------- TASK TIMING ----------------
@@ -127,12 +142,10 @@ function addBtnHandlers() {
 				alert("Please select one sample in each category. Missing the "+missing);
 			} else {
 				StopMidi();
-				satisfaction = prompt("How did you like this pattern? \n0=not at all, 1=OK, 2=very much", "0");
-		  		saveData();
-		  		var delay= setTimeout(function() {
-					  			initTask();
-					  			startTask();
-					  		}, 1000);
+				do {
+					satisfaction = prompt("How did you like this pattern? \n0=not at all, 1=OK, 2=very much", "1");
+				} while(satisfaction<0 || satisfaction>2);
+		  		saveData(true);
 		  	}
 		  //initTask();
 		}
@@ -175,15 +188,15 @@ function addBtnHandlers() {
 }
 		
 	var startTask = function() {
-		interval=setInterval(count, 1000); //set chrono
 		loadView(viewType);
 		loadDefaultMidiMap();
 		loadMidiIdx(sequence[taskNo][1]);
-
+		interval=setInterval(count, 1000); //set chrono
+		pause=false;
 	}
 
 
-	var saveData = function() {
+	var saveData = function(callinit) {
 		taskResult.view=sequence[taskNo][0];
 		taskResult.pattern=sequence[taskNo][1];
 		taskResult.selection = {'Kick': selectedKick.sName, 'Snare' : selectedSnare.sName, 'OpenHH': selectedOHH.sName, 'ClosedHH': selectedCHH.sName};
@@ -194,6 +207,7 @@ function addBtnHandlers() {
 		expResult.taskResults[taskNo] = taskResult;
 		// save in database
 		insertTaskResult(taskResult, expResult.pid);
+		if(callinit===true) { initTask(true); }
 	}
 
 	var insertParticipant = function() {
@@ -245,30 +259,34 @@ function addBtnHandlers() {
 		if(pause!==true){
 			if(time<MAX_TASKTIME){
 				time=time+1;
+				if(rhythmIsOn) {
+					timeplaying+=1;
+				}
 				if(time===1 || time%10===0) { // every 10sec update timeline
 					updateTimeLine(time);
 				}
 			} else { // end task
 				if(rhythmIsOn===true) {
 					StopMidi();
+					rhythmIsOn=false;
 				}
 				// check each category has a sample selected
 				if(!selectedKick.sName || !selectedSnare.sName || !selectedOHH.sName || !selectedCHH.sName) {
 					// if one is missing, restart task
 					alert("Restarting task num. "+taskNo);
 					taskNo=taskNo-1; // because initTask increments taskNo
+					initTask(true);
 				} else {
 					// else save and go to next
-					saveData();
+					saveData(true);
 				}
-				initTask();
 			}
 		}
 	}
 
 window.onload = function() {
-	var startExp = initExp();
-	var startTask = initTask();
+	var initializeExp = initExp();
+	var initializeTask = initTask(false);
 	addBtnHandlers();
 };
 

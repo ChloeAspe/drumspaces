@@ -57,6 +57,7 @@
             this.circle.fill('#FF6347'); 
           } else if(this.sParent.sName == prevSelected.sParent.sName) {
             this.circle.fill('#DEA297');
+            stage.sendMessage('mouseOut', {sName: this.sParent.sName}); //so that it is removed from rhythm
           } else{
             this.circle.fill('darkgray');
             stage.sendMessage('mouseOut', {sName: this.sParent.sName}); //so that it is removed from rhythm
