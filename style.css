@@ -50,7 +50,7 @@ body{
 .pane {
 	display: table-cell;
 	width: 490px;
-	height: 420px;
+	height: 450px;
 	margin: 0;
 	font-size: 30px;
 	background-color: #000;
@@ -221,11 +221,15 @@ display: block;
 	overflow-y: scroll;
 	overflow-x: hidden;
 	width: 520px;
-	margin-top: 10px;
+	margin-top: 20px;
 }
 
 .drumspace.listview > div {
 	height: 10000px;
+}
+
+#snare-canvas.listview > div, #ohh-canvas.listview > div, #chh-canvas.listview > div {
+	height: 3500px;
 }
 
 .mute-btn {

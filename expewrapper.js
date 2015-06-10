@@ -4,6 +4,7 @@
 	var wasSelected, wasListened, nbSelected, nbListened;
 	var expReady, taskReady, taskNo;
 	var interval, time, timeWidth, timelineWidth, proportion, pause, start;
+	var satisfaction;
 
 	// CONST
 	var MAX_TASKTIME = 300;
@@ -31,6 +32,8 @@
 			'seq': sequence,
 			'taskResults' : []
 		};
+		start=false;
+		$("#pause-btn > span").text("START ");
 		timelineWidth = $("#timeline").css("width");
 		proportion = parseInt(timelineWidth)/MAX_TASKTIME;
 		console.log("initexp");
@@ -71,7 +74,6 @@
 		nbListened=0;
 		timeWidth = 0;
 		pause = true;
-		start = false;
 		taskResult = {
 		 'view': 0,
 		 'pattern': 0,
@@ -83,9 +85,9 @@
 		 },
 		 'time': 0, 
 		 'nbSelected':0,
-		 'nbListened':0
+		 'nbListened':0, 
+		 'satisfaction':0
 		};
-		$("#pause-btn > span").text("START ");
 		$("#timeline > span").css("background-color", "#34BB62");
 
 	}
@@ -125,8 +127,12 @@ function addBtnHandlers() {
 				alert("Please select one sample in each category. Missing the "+missing);
 			} else {
 				StopMidi();
+				satisfaction = prompt("How did you like this pattern? \n0=not at all, 1=OK, 2=very much", "0");
 		  		saveData();
-		  		var delay= setTimeout(initTask, 1000);
+		  		var delay= setTimeout(function() {
+					  			initTask();
+					  			startTask();
+					  		}, 1000);
 		  	}
 		  //initTask();
 		}
@@ -184,6 +190,7 @@ function addBtnHandlers() {
 		taskResult.time=time;
 		taskResult.nbSelected = nbSelected;
 		taskResult.nbListened = nbListened;
+		taskResult.satisfaction = satisfaction;
 		expResult.taskResults[taskNo] = taskResult;
 		// save in database
 		insertTaskResult(taskResult, expResult.pid);
