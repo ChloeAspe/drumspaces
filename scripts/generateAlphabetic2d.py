@@ -5,12 +5,12 @@ import os
 import json
 from collections import OrderedDict
 
-rootFolder = "/../../samples/mp3"
+rootFolder = "/../../samples/wav"
 rootFolder = os.path.realpath(__file__+rootFolder)
 outFolder = "/../../JSON"
 outFolder = os.path.realpath(__file__+outFolder)
 
-
+print rootFolder
 def baseinfo(name):
 	# if name.split(' ')[0] in destClass:
 	res = " ".join(name.split(' ')[1:])
@@ -25,7 +25,7 @@ destClass = ["ClosedHH","OpenHH","Kick","Snare"]
 sortedDic = {}
 for root ,folders,_files in os.walk(rootFolder):
 	curFolder = root[len(os.path.commonprefix([rootFolder,root]))+1:]
-	files = [baseinfo(x) for x in _files if (os.path.splitext(x)[1] == ".mp3")]
+	files = [baseinfo(x) for x in _files if (os.path.splitext(x)[1] == ".wav")]
 	files.sort()
 	
 	if curFolder != "tst" and curFolder!="Default" and len(files)!=0:

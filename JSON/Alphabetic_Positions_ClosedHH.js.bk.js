@@ -20,10 +20,6 @@ var Alphabetic_ClosedHHPos =
         -0.2222222222222222, 
         0.2142857142857143
     ], 
-    "ClosedHH Alley.wav": [
-        0.1875, 
-        -0.35714285714285715
-    ], 
     "ClosedHH Chardro 1.wav": [
         -0.1774193548387097, 
         -0.2857142857142857
@@ -81,7 +77,7 @@ var Alphabetic_ClosedHHPos =
         -0.4642857142857143
     ], 
     "ClosedHH AR60sLate V127 1.wav": [
-        -0.3125, 
+        -0.06521739130434784, 
         -0.35714285714285715
     ], 
     "ClosedHH SitsThere.wav": [
@@ -104,9 +100,9 @@ var Alphabetic_ClosedHHPos =
         0.2222222222222222, 
         0.25
     ], 
-    "ClosedHH Metallite.wav": [
-        0.11111111111111116, 
-        0.0714285714285714
+    "ClosedHH Heartbreaker 2.wav": [
+        0.0, 
+        -0.10714285714285715
     ], 
     "ClosedHH Concentration 1.wav": [
         0.4354838709677419, 
@@ -121,7 +117,7 @@ var Alphabetic_ClosedHHPos =
         0.25
     ], 
     "ClosedHH Aeki 1.wav": [
-        0.0625, 
+        0.19565217391304346, 
         -0.35714285714285715
     ], 
     "ClosedHH 808.wav": [
@@ -136,9 +132,9 @@ var Alphabetic_ClosedHHPos =
         0.19999999999999996, 
         -0.3214285714285714
     ], 
-    "ClosedHH Fancy.wav": [
-        -0.34210526315789475, 
-        -0.17857142857142855
+    "ClosedHH Alley.wav": [
+        0.28260869565217395, 
+        -0.35714285714285715
     ], 
     "ClosedHH DontFront.wav": [
         -0.20588235294117646, 
@@ -192,24 +188,24 @@ var Alphabetic_ClosedHHPos =
         0.11111111111111116, 
         0.2142857142857143
     ], 
-    "ClosedHH Concentration 2.wav": [
-        0.467741935483871, 
-        -0.2857142857142857
-    ], 
     "ClosedHH Trinidad.wav": [
         0.43333333333333335, 
         0.3214285714285714
     ], 
     "ClosedHH Ame.wav": [
-        0.25, 
+        0.32608695652173914, 
         -0.35714285714285715
+    ], 
+    "ClosedHH SmackIt 2.wav": [
+        -0.5, 
+        0.2857142857142857
     ], 
     "ClosedHH Chardro 11.wav": [
         -0.11290322580645162, 
         -0.2857142857142857
     ], 
     "ClosedHH AcidPauli 1.wav": [
-        -0.0625, 
+        0.10869565217391308, 
         -0.35714285714285715
     ], 
     "ClosedHH Neolithic 1.wav": [
@@ -365,7 +361,7 @@ var Alphabetic_ClosedHHPos =
         -0.17857142857142855
     ], 
     "ClosedHH AcidPauli 2.wav": [
-        0.0, 
+        0.15217391304347827, 
         -0.35714285714285715
     ], 
     "ClosedHH CaliLife 2.wav": [
@@ -409,7 +405,7 @@ var Alphabetic_ClosedHHPos =
         -0.4285714285714286
     ], 
     "ClosedHH AR70sOpen V127 1.wav": [
-        -0.1875, 
+        0.021739130434782594, 
         -0.35714285714285715
     ], 
     "ClosedHH GridBugs 2.wav": [
@@ -419,6 +415,10 @@ var Alphabetic_ClosedHHPos =
     "ClosedHH GettingDir 1.wav": [
         -0.1923076923076923, 
         -0.14285714285714285
+    ], 
+    "ClosedHH WhosTime.wav": [
+        0.09999999999999998, 
+        0.3928571428571429
     ], 
     "ClosedHH GameTight.wav": [
         -0.4230769230769231, 
@@ -465,7 +465,7 @@ var Alphabetic_ClosedHHPos =
         -0.2857142857142857
     ], 
     "ClosedHH AR60sEarly V127 1.wav": [
-        -0.4375, 
+        -0.4565217391304348, 
         -0.35714285714285715
     ], 
     "ClosedHH Runaround 1.wav": [
@@ -475,6 +475,10 @@ var Alphabetic_ClosedHHPos =
     "ClosedHH Rother 2.wav": [
         0.2777777777777778, 
         0.2142857142857143
+    ], 
+    "ClosedHH Metallite.wav": [
+        0.11111111111111116, 
+        0.0714285714285714
     ], 
     "ClosedHH Chardro 3.wav": [
         -0.04838709677419356, 
@@ -496,9 +500,9 @@ var Alphabetic_ClosedHHPos =
         0.23333333333333328, 
         0.3214285714285714
     ], 
-    "ClosedHH MandoBeat B.wav": [
-        -0.33333333333333337, 
-        0.0714285714285714
+    "ClosedHH Lostodos.wav": [
+        0.38888888888888884, 
+        0.0357142857142857
     ], 
     "ClosedHH Pneumatik 1.wav": [
         0.2272727272727273, 
@@ -541,7 +545,7 @@ var Alphabetic_ClosedHHPos =
         -0.0357142857142857
     ], 
     "ClosedHH AndedFan.wav": [
-        0.3125, 
+        0.3695652173913043, 
         -0.35714285714285715
     ], 
     "ClosedHH YeahRight.wav": [
@@ -561,7 +565,7 @@ var Alphabetic_ClosedHHPos =
         0.1428571428571429
     ], 
     "ClosedHH AR60sEarly V127 2.wav": [
-        -0.375, 
+        -0.41304347826086957, 
         -0.35714285714285715
     ], 
     "ClosedHH MegaSynth.wav": [
@@ -597,7 +601,7 @@ var Alphabetic_ClosedHHPos =
         -0.25
     ], 
     "ClosedHH AR60sLate V127 2.wav": [
-        -0.25, 
+        -0.021739130434782594, 
         -0.35714285714285715
     ], 
     "ClosedHH Sickboy 2.wav": [
@@ -696,10 +700,6 @@ var Alphabetic_ClosedHHPos =
         0.08064516129032262, 
         -0.2857142857142857
     ], 
-    "ClosedHH SmackIt 2.wav": [
-        -0.5, 
-        0.2857142857142857
-    ], 
     "ClosedHH GettingDir 2.wav": [
         -0.11538461538461536, 
         -0.14285714285714285
@@ -721,7 +721,7 @@ var Alphabetic_ClosedHHPos =
         -0.17857142857142855
     ], 
     "ClosedHH Apparat.wav": [
-        0.375, 
+        0.4130434782608695, 
         -0.35714285714285715
     ], 
     "ClosedHH DubTao 4.wav": [
@@ -773,7 +773,7 @@ var Alphabetic_ClosedHHPos =
         -0.39285714285714285
     ], 
     "ClosedHH Aeki 2.wav": [
-        0.125, 
+        0.23913043478260865, 
         -0.35714285714285715
     ], 
     "ClosedHH SwayDay 1.wav": [
@@ -809,7 +809,7 @@ var Alphabetic_ClosedHHPos =
         0.0714285714285714
     ], 
     "ClosedHH AtomHeart.wav": [
-        0.4375, 
+        0.4565217391304348, 
         -0.35714285714285715
     ], 
     "ClosedHH Rother 1.wav": [
@@ -863,10 +863,6 @@ var Alphabetic_ClosedHHPos =
     "ClosedHH ClikDub 1.wav": [
         0.27419354838709675, 
         -0.2857142857142857
-    ], 
-    "ClosedHH Heartbreaker 2.wav": [
-        0.0, 
-        -0.10714285714285715
     ], 
     "ClosedHH Huntemann.wav": [
         0.4285714285714286, 
@@ -932,13 +928,13 @@ var Alphabetic_ClosedHHPos =
         -0.33333333333333337, 
         -0.07142857142857145
     ], 
-    "ClosedHH Lostodos.wav": [
-        0.38888888888888884, 
-        0.0357142857142857
+    "ClosedHH Fancy.wav": [
+        -0.34210526315789475, 
+        -0.17857142857142855
     ], 
-    "ClosedHH WhosTime.wav": [
-        0.09999999999999998, 
-        0.3928571428571429
+    "ClosedHH MandoBeat B.wav": [
+        -0.33333333333333337, 
+        0.0714285714285714
     ], 
     "ClosedHH Hood 1.wav": [
         0.2142857142857143, 
@@ -1005,7 +1001,7 @@ var Alphabetic_ClosedHHPos =
         -0.2857142857142857
     ], 
     "ClosedHH AR70sOpen V127 2.wav": [
-        -0.125, 
+        0.06521739130434778, 
         -0.35714285714285715
     ], 
     "ClosedHH FortedOn.wav": [
@@ -1031,5 +1027,9 @@ var Alphabetic_ClosedHHPos =
     "ClosedHH Morrison 2.wav": [
         0.2777777777777778, 
         0.0714285714285714
+    ], 
+    "ClosedHH Concentration 2.wav": [
+        0.467741935483871, 
+        -0.2857142857142857
     ]
 }
