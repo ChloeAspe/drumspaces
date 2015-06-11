@@ -2,10 +2,11 @@
 require "Bdd.php";
 
 $bd = Bdd::initialisation();
+$pt=$_POST["pinfo"];
 $sucess = true;
 
 $query="INSERT INTO PARTICIPANT (PNAME, PEMAIL) VALUES (?,?)";
-$params=array("TOTO", "TTOIZUDIZ@UHZU.hg");
+$params=array($pt["name"], $pt["email"]);
 $sucess += $bd->executer($query, $params);
 $pid = $bd->getLastInsertId();
 

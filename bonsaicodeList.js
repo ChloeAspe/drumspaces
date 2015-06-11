@@ -15,7 +15,7 @@
       currentName = sampleListBonsai[i].shortName;
       var line = new Group();
       line.rect  = new Rect(20, placeY, stage.options.width-20, 19).addTo(stage);
-      line.playbackRect  = new Rect(0, placeY, 20, 19).addTo(line);
+      line.playbackRect  = new Rect(0, placeY, 20, 19).addTo(stage);
       line.circle = new Circle(10, placeY+10, radius).addTo(line);
       line.sParent = sampleListBonsai[i]; // to access the rects parent sample
       line.rect.fill('lightgray').stroke('transparent', 0);

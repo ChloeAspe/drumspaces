@@ -1,13 +1,13 @@
 	var h, viewScript, viewType, jsonDataKick, jsonDataSnare, jsonDataOHH, jsonDataCHH, rhythmIsOn;
 	var selectedKick, selectedSnare, selectedOHH, selectedCHH, rhythmIsOn;
-	var expResult, taskResult;
+	var pinfo, expResult, taskResult;
 	var wasSelected, wasListened, nbSelected, nbListened;
 	var expReady, taskReady, taskNo;
 	var interval, timeplaying, time, timeWidth, timelineWidth, proportion, pause, start;
 	var satisfaction;
 
 	// CONST
-	var MAX_TASKTIME = 300;
+	var MAX_TASKTIME = 180;
 	
 	var sequence = [ // ordered sequence of [view, rhythm pattern]
 		[1, 1],
@@ -22,6 +22,10 @@
 	];
 
 	var pid = 0;
+	var pinfo = {
+		name: "PARTICIPANTNAME", 
+		email: "email@zidhziuhd.e"
+	};
 
 
 	var initExp = function() {	
@@ -216,6 +220,7 @@ function addBtnHandlers() {
 		  url: 'includes/php/insertParticipant.php', 
 		  dataType:'json',
 		  data: {
+		  	pinfo:pinfo
 		  }, 
 		  success: function(data, textStatus, jqXHR) {
 		    expResult.pid=data.participant; // save created Participant ID
