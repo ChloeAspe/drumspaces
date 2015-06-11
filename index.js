@@ -124,6 +124,7 @@ canvasDim.y =500
         if($.inArray(selectedKick.sName, wasSelected)===-1) {
           wasSelected.push(selectedKick.sName);
           nbSelected.Kick+=1;
+          nbSelected.total+=1;
         }
       }).on('message:mouseOver',function(data) {
         if(rhythmIsOn == true) { // if rhythm is On, replace selected CHH
@@ -136,6 +137,7 @@ canvasDim.y =500
         if($.inArray(data.sName, wasListened)===-1) {
           wasListened.push(data.sName);
           nbListened.Kick+=1;
+          nbListened.total+=1;
         }
       }).on('message:mouseOut', function(data) {
         if(rhythmIsOn == true) { // if rhythm On, come back to selected CHH
@@ -160,6 +162,7 @@ canvasDim.y =500
         if($.inArray(selectedSnare.sName, wasSelected)===-1) {
           wasSelected.push(selectedSnare.sName);
           nbSelected.Snare+=1;
+          nbSelected.total+=1;
         }
       }).on('message:mouseOver',function(data) {
         if(rhythmIsOn == true) { // if rhythm is On, replace selected CHH
@@ -172,6 +175,7 @@ canvasDim.y =500
         if($.inArray(data.sName, wasListened)===-1) {
           wasListened.push(data.sName);
           nbListened.Snare+=1;
+          nbListened.total+=1;
         }
       }).on('message:mouseOut', function(data) {
         if(rhythmIsOn == true) { // if rhythm On, come back to selected CHH
@@ -193,6 +197,7 @@ canvasDim.y =500
         if($.inArray(selectedOHH.sName, wasSelected)===-1) {
           wasSelected.push(selectedOHH.sName);
           nbSelected.OpenHH+=1;
+          nbSelected.total+=1;
         }
       }).on('message:mouseOver',function(data) {
         if(rhythmIsOn == true) { // if rhythm is On, replace selected CHH
@@ -205,6 +210,7 @@ canvasDim.y =500
         if($.inArray(data.sName, wasListened)===-1) {
           wasListened.push(data.sName);
           nbListened.OpenHH+=1;
+          nbListened.total+=1;
         }
       }).on('message:mouseOut', function(data) {
         if(rhythmIsOn == true) { // if rhythm On, come back to selected CHH
@@ -226,6 +232,7 @@ canvasDim.y =500
         if($.inArray(selectedCHH.sName, wasSelected)===-1) {
           wasSelected.push(selectedCHH.sName);
           nbSelected.ClosedHH+=1;
+          nbSelected.total+=1;
         }
       }).on('message:mouseOver', function(data) {
         if(rhythmIsOn == true) { // if rhythm is On, replace selected CHH
@@ -236,6 +243,7 @@ canvasDim.y =500
         if($.inArray(data.sName, wasListened)===-1) {
           wasListened.push(data.sName);
           nbListened.ClosedHH+=1;
+          nbListened.total+=1;
         }
       }).on('message:mouseOut', function(data) {
         if(rhythmIsOn == true) { // if rhythm On, come back to selected CHH

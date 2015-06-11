@@ -70,6 +70,9 @@
 	    }
 
 		taskNo+=1;
+		if(taskNo===9) {
+			alert("Experiment complete! Thank you");
+		}
 		viewType=sequence[taskNo][0];
 		console.log("viewtype : "+viewType);
 		time = 0;
@@ -80,13 +83,15 @@
 			'Kick':0,
 			'Snare':0,
 			'OpenHH':0,
-			'ClosedHH':0
+			'ClosedHH':0,
+			'total':0
 		};
 		nbListened={
 			'Kick':0,
 			'Snare':0,
 			'OpenHH':0,
-			'ClosedHH':0
+			'ClosedHH':0,
+			'total':0
 		};
 		timeWidth = 0;
 		pause = true;
@@ -205,6 +210,7 @@ function addBtnHandlers() {
 		taskResult.pattern=sequence[taskNo][1];
 		taskResult.selection = {'Kick': selectedKick.sName, 'Snare' : selectedSnare.sName, 'OpenHH': selectedOHH.sName, 'ClosedHH': selectedCHH.sName};
 		taskResult.time=time;
+		taskResult.timeplaying=timeplaying;
 		taskResult.nbSelected = nbSelected;
 		taskResult.nbListened = nbListened;
 		taskResult.satisfaction = satisfaction;
@@ -283,7 +289,10 @@ function addBtnHandlers() {
 					initTask(true);
 				} else {
 					// else save and go to next
-					saveData(true);
+					do {
+						satisfaction = prompt("How did you like this pattern? \n0=not at all, 1=OK, 2=very much", "1");
+					} while(satisfaction<0 || satisfaction>2);
+			  		saveData(true);
 				}
 			}
 		}
