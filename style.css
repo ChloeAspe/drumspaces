@@ -50,7 +50,7 @@ body{
 .pane {
 	display: table-cell;
 	width: 490px;
-	height: 450px;
+	height: 472px;
 	margin: 0;
 	font-size: 30px;
 	background-color: #000;
@@ -80,7 +80,7 @@ body{
 
 .drumspace {
 	width: 500px;
-	height:350px;
+	height:380px;
 	margin-top: 20px;
 	font-size: 60%;
 }

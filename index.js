@@ -24,7 +24,7 @@ function getSampleObjects(jsonData,type){
 // constants
 var RADIUS = 4;
 var canvasDim = new Object();
-canvasDim.x = 350
+canvasDim.x = 380
 canvasDim.y =500
 
 // VIEWTYPE : changes between the 3 tasks, random order
@@ -51,7 +51,10 @@ canvasDim.y =500
     switch(viewType) {
       case 1: 
         viewScript='bonsaicodeList.js';
-        h=14000;
+        hk=8000;
+        hs=4000;
+        ho=4500;
+        hc=4500;
         $(".drumspace").addClass("listview");
         jsonDataKick = KickPos;
         jsonDataSnare = SnarePos;
@@ -61,7 +64,7 @@ canvasDim.y =500
         break;
       case 2:
         viewScript='bonsaicode.js';
-        h=canvasDim.x;
+        hk=hs=ho=hc=canvasDim.x;
         jsonDataKick = Alphabetic_KickPos;
         jsonDataSnare = Alphabetic_SnarePos;
         jsonDataOHH = Alphabetic_OpenHHPos;
@@ -71,7 +74,7 @@ canvasDim.y =500
         break;
       case 3: 
         viewScript='bonsaicode.js';
-        h=canvasDim.x;
+        hk=hs=ho=hc=canvasDim.x;
         jsonDataKick = KickPos;
         jsonDataSnare = SnarePos;
         jsonDataOHH = OpenHHPos;
@@ -84,7 +87,7 @@ canvasDim.y =500
     // draw the sample spaces
     window.kickBonsai = bonsai.run(kickCanvas, {
       url: viewScript,
-      height: h,
+      height: hk,
       width: canvasDim.y,
       sampleList: getSampleObjects(jsonDataKick,"Kick"),
       radius: RADIUS
@@ -92,7 +95,7 @@ canvasDim.y =500
 
     window.snareBonsai = bonsai.run(snareCanvas, {
       url: viewScript,
-      height: h,
+      height: hs,
       width: canvasDim.y,
       sampleList: getSampleObjects(jsonDataSnare,"Snare"),
       radius: RADIUS
@@ -100,7 +103,7 @@ canvasDim.y =500
 
     window.ohhBonsai = bonsai.run(ohhCanvas, {
       url: viewScript,
-      height: h,
+      height: ho,
       width: canvasDim.y,
       sampleList: getSampleObjects(jsonDataOHH,"OpenHH"),
       radius: RADIUS
@@ -108,7 +111,7 @@ canvasDim.y =500
 
     window.chhBonsai = bonsai.run(chhCanvas, {
       url: viewScript,
-      height: h,
+      height: hc,
       width: canvasDim.y,
       sampleList: getSampleObjects(jsonDataCHH,"ClosedHH"),
       radius: RADIUS

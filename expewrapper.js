@@ -1,18 +1,19 @@
-	var h, viewScript, viewType, jsonDataKick, jsonDataSnare, jsonDataOHH, jsonDataCHH, rhythmIsOn;
+	var hk, hs, ho, hc;
+	var viewScript, viewType, jsonDataKick, jsonDataSnare, jsonDataOHH, jsonDataCHH, rhythmIsOn;
 	var selectedKick, selectedSnare, selectedOHH, selectedCHH, rhythmIsOn;
 	var pinfo, expResult, taskResult;
 	var wasSelected, wasListened, nbSelected, nbListened;
 	var expReady, taskReady, taskNo;
 	var interval, timeplaying, time, timeWidth, timelineWidth, proportion, pause, start;
-	var satisfaction;
+	var qpat, qres;
 
 	// CONST
 	var MAX_TASKTIME = 180;
 	
 	var sequence = [ // ordered sequence of [view, rhythm pattern]
 		[1, 1],
-		[1, 2],
-		[1, 3],
+		[2, 2],
+		[3, 3],
 		[2, 4],
 		[1, 5],
 		[3, 6],
@@ -23,8 +24,8 @@
 
 	var pid = 0;
 	var pinfo = {
-		name: "PARTICIPANTNAME", 
-		email: "email@zidhziuhd.e"
+		name: "PILOT2", 
+		email: "whatever"
 	};
 
 
@@ -108,7 +109,8 @@
 		 'timeplaying':0, 
 		 'nbSelected':0,
 		 'nbListened':0, 
-		 'satisfaction':0
+		 'qpat':0,
+		 'qres':0
 		};
 		$("#timeline > span").css("background-color", "#34BB62");
 		if(callstart===true) {
@@ -152,9 +154,13 @@ function addBtnHandlers() {
 			} else {
 				StopMidi();
 				do {
-					satisfaction = prompt("How did you like this pattern? \n0=not at all, 1=OK, 2=very much", "1");
-				} while(satisfaction<0 || satisfaction>2);
+					qpat = prompt("How did you like this pattern? \n0=not at all, 1=OK, 2=very much", "1");
+				} while(qpat<0 || qpat>2);
+				do {
+					qres = prompt("How satisfied are you with the result? \n0=not at all, 1=OK, 2=very much", "1");
+				}while(qres<0 || qres>2);
 		  		saveData(true);
+
 		  	}
 		  //initTask();
 		}
@@ -213,7 +219,8 @@ function addBtnHandlers() {
 		taskResult.timeplaying=timeplaying;
 		taskResult.nbSelected = nbSelected;
 		taskResult.nbListened = nbListened;
-		taskResult.satisfaction = satisfaction;
+		taskResult.qpat = qpat;
+		taskResult.qres = qres;
 		expResult.taskResults[taskNo] = taskResult;
 		// save in database
 		insertTaskResult(taskResult, expResult.pid);
@@ -290,8 +297,11 @@ function addBtnHandlers() {
 				} else {
 					// else save and go to next
 					do {
-						satisfaction = prompt("How did you like this pattern? \n0=not at all, 1=OK, 2=very much", "1");
-					} while(satisfaction<0 || satisfaction>2);
+						qpat = prompt("How did you like this pattern? \n0=not at all, 1=OK, 2=very much", "1");
+					} while(qpat<0 || qpat>2);
+					do {
+						qres = prompt("How satisfied are you with the result? \n0=not at all, 1=OK, 2=very much", "1");
+					}while(qres<0 || qres>2);
 			  		saveData(true);
 				}
 			}
