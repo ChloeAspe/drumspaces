@@ -22,19 +22,6 @@ function addBtnHandlers() {
 	});
 
 
-	$("#l-next-btn").click(function() {
-		if(currentScore!=0) {
-			if(currentPos<setNb-1) {
-				nav(setlist, 1);
-				clearScene();
-			} else {
-				thankYou();
-			}
-		} else {
-			alert("waittttt you didn't grade this one");
-		}
-	});
-
 	$("#form-btn").click(function() { // "START" btn (participant form)
 		closeModal();
 		recordEvaluator();
@@ -56,6 +43,20 @@ function addBtnHandlers() {
 		}
 	});
 
+	$("#l-next-btn").click(function() {
+		if(currentScore!=0) {
+			if(currentPos<setNb-1) {
+				nav(setlist, 1);
+				clearScene();
+			} else {
+				recordScore(currentScore, evaluatorID, currentTID);
+				thankYou();
+			}
+		} else {
+			alert("waittttt you didn't grade this one");
+		}
+	});
+
 }
 
 function initEval(name, email, pid) { // save whatever info is needed from the user
@@ -73,15 +74,21 @@ function displayPos(pos) {
 }
 
 function nav(list, direction) { // direction: 1=next, -1=previous
+	StopMidi();
 	if(currentTID!==0) { // do not record on init
 		recordScore(currentScore, evaluatorID, currentTID);
 	}
 	currentPos+=direction;
 	currentSet=list[currentPos];
-	console.log(currentSet);
+	currentPattern = currentSet.PATTERN;
+	console.log("currentpattern : "+currentPattern);
 	currentTID=currentSet.TID; // database ID of the taskresult being evaluated
 	displayPos(currentPos+1);
+	loadMidiIdx(currentPattern);
 	setTheMidi(currentSet);
+	if(playing===true) { 
+		StartMidi();
+	} // if rhythm as playing when user clicked next, resume playing rhythm with new set
 }
 
 
