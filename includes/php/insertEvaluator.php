@@ -24,7 +24,7 @@ $minTID = ($eGroup-1) * $setsPerGroup +1;
 $maxTID = $eGroup * $setsPerGroup ;
 
 // get portion of TASKRESULT to be evaluated by this user
-$query2 = "SELECT TID, PATTERN, KICK, SNARE, OPENHH, CLOSEDHH FROM TASKRESULT 
+$query2 = "SELECT TID, PATTERN, KICK, SNARE, OPENHH, CLOSEDHH, PID FROM TASKRESULT 
 WHERE TID>".$minTID." AND TID<=".$maxTID;
 $setList = $bd->requete($query2);
 $setList = json_encode($setList);
