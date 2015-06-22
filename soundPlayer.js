@@ -11,8 +11,16 @@ var soundClasses;
 // for now it's preferable to use wave files
 var useMp3 = false;
 
+var loadingSamples = {}
 
-var localAudioFilePath = "samples/";
+// callback functions to override
+
+// all 4 sounds are loaded (kit ready to be played)
+var allLoadedCallback = function(){console.log("allLoaded")};
+// percent loaded on current Kit
+var loadingCallBack = function(pct){ console.log(pct,loadingSamples);}
+
+var localAudioFilePath = "https://raw.githubusercontent.com/MartinHN/drumspaces/gh-pages/samples/";
 
 
 var loadAll = function(){
@@ -51,6 +59,7 @@ var loadPlayer = function(){
 	
 	for ( var type  in audioFiles){
 		soundClasses.push(type);
+		loadingSamples[type] = 0;
 		sounds[type] = new soundManager.createSound({
 		   id: type,
 		   url: "",//"samples/" + type + "/"+ audioFiles[type][0],
@@ -58,7 +67,34 @@ var loadPlayer = function(){
 		   multiShot: true,
 		   autoLoad: false,
 		   autoPlay : false,
-		   stream: true
+		   stream: true,
+		   whileloading : function(){
+		   	if(!this.bytesTotal)return;
+		   	loadingSamples[this.id] = this.bytesLoaded*100/this.bytesTotal;
+		   	var pct=0;
+		   	var size=0;
+		   	for (var key in loadingSamples){
+		   		pct +=loadingSamples[key];
+		   		size++;
+		   	}
+		   	pct/= size;
+		   	
+		   	loadingCallBack(pct);
+		   	
+		   },
+		   onload : function(b){
+		   	if(b)loadingSamples[this.id]  = 100;
+		   	var allLoaded = true;
+		   	var size = 0;
+		   	for (var key in loadingSamples){
+		   		size++;
+		   		allLoaded&= loadingSamples[key] ==100
+		   	}
+		   	if(allLoaded && size == 4){
+		   		allLoadedCallback();
+		   	}
+
+		   }
 		 });
 	}
 
@@ -143,18 +179,21 @@ var checkLocalSample = function(){
 }
 
 
-var loadDefaultMidiMap = function(){
-sounds["Kick"].url = getSoundPath("Default","Kick");
-sounds["Snare"].url = getSoundPath("Default","Snare");
-sounds["OpenHH"].url = getSoundPath("Default","OpenHH");
-sounds["ClosedHH"].url = getSoundPath("Default","ClosedHH");
-}
-var setMidiMap = function(type,fname){
+
+var setMidiMap = function(type,fname,directory){
 if(fname!== undefined){
 	// sounds[type].stop();
-	sounds[type].url = getSoundPath(type,fname);
+	var _type = type
+	if(directory!=undefined){_type = directory}
+	sounds[type].url = getSoundPath(_type,fname);
 	sounds[type].load();
 }
+}
+var loadDefaultMidiMap = function(){
+	setMidiMap("Kick","Kick","Default");
+	setMidiMap("Snare","Snare","Default");
+	setMidiMap("OpenHH","OpenHH","Default");
+	setMidiMap("ClosedHH","ClosedHH","Default");
 }
 
 
