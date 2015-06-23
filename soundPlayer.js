@@ -1,4 +1,4 @@
-soundManager.setup({debugMode: false,useHighPerformance : true,flashVersion: 9})
+
 
 
 
@@ -27,7 +27,6 @@ var loadAll = function(){
 	
 	loadPlayer();
 	loadMidiIdx(0);
-	//checkLocalSample();
 	loadDefaultMidiMap();
 	midiMap = new Array();
 	midiMap[0]="Kick"
@@ -50,6 +49,7 @@ var loadAll = function(){
 	MutedGroup["OpenHH"] = false;
 }
 
+soundManager.setup({debugMode: false,useHighPerformance : true,flashVersion: 9, onready:loadAll})
 
 // audio Player
 
@@ -62,14 +62,16 @@ var loadPlayer = function(){
 		loadingSamples[type] = 0;
 		sounds[type] = new soundManager.createSound({
 		   id: type,
-		   url: "",//"samples/" + type + "/"+ audioFiles[type][0],
+		   // url: "",//"samples/" + type + "/"+ audioFiles[type][0],
 		   volume: 70,
 		   multiShot: true,
-		   autoLoad: false,
+		   autoLoad: true,
 		   autoPlay : false,
-		   stream: true,
+		   stream: false,
 		   whileloading : function(){
-		   	if(!this.bytesTotal)return;
+		   	
+		   	// avoid multiple or empty calls from SM2
+		   	if(!this.bytesTotal || loadingSamples[this.id]==100)return;
 		   	loadingSamples[this.id] = this.bytesLoaded*100/this.bytesTotal;
 		   	var pct=0;
 		   	var size=0;
@@ -83,6 +85,8 @@ var loadPlayer = function(){
 		   	
 		   },
 		   onload : function(b){
+		   	// avoid multiple call from SM2
+		   	if(loadingSamples[this.id] == 100){return}
 		   	if(b)loadingSamples[this.id]  = 100;
 		   	var allLoaded = true;
 		   	var size = 0;
@@ -100,10 +104,10 @@ var loadPlayer = function(){
 
 	explorationPlayer = new soundManager.createSound({
 		   id: "explorationPlayer",
-		   url: "",
+		   // url: "",
 		   volume: 70,
 		   multiShot: false,
-		   autoLoad: false,
+		   autoLoad: true,
 		   stream: true
 		 });
 }
@@ -151,32 +155,6 @@ var getSoundPath = function(type ,_fname){
 }
 
 }
-var checkLocalSample = function(){
-
-	var oldPlayer = soundManager.getSoundById('testPlayer');
-	if(oldPlayer!=undefined){
-	oldPlayer.destruct();
-	}
-	
-	var testPlayer = new soundManager.createSound({
-		   id: "testPlayer",
-		   url: getSoundPath(Object.keys(audioFiles)[0],audioFiles[Object.keys(audioFiles)[0]][0]),
-		   volume: 70,
-		   multiShot: false,
-		   autoLoad: true,
-		   stream: true,
-		   onload:function(e){
-		   	if(e===false){
-				localAudioFilePath = "file://"+window.prompt("enter local path for folder (containing wav or mp3 subfolder)\nyou need to grant chrome for local access","");
-	      		checkLocalSample();
-			}
-			else{
-				console.log("found");
-			}
-		   }
-		 });
-
-}
 
 
 
@@ -185,8 +163,10 @@ if(fname!== undefined){
 	// sounds[type].stop();
 	var _type = type
 	if(directory!=undefined){_type = directory}
+	loadingSamples[type] = 0;
 	sounds[type].url = getSoundPath(_type,fname);
 	sounds[type].load();
+	console.log("loading",getSoundPath(_type,fname))
 }
 }
 var loadDefaultMidiMap = function(){
@@ -353,14 +333,14 @@ var loadMidi = function(midiName){
 
 
 
-if (window.addEventListener) // W3C standard
-{
-  window.addEventListener('load', loadAll, false); // NB **not** 'onload'
-} 
-else if (window.attachEvent) // Microsoft
-{
-  window.attachEvent('onload', loadAll);
-}
-else{
+// if (window.addEventListener) // W3C standard
+// {
+//   window.addEventListener('load', loadAll, false); // NB **not** 'onload'
+// } 
+// else if (window.attachEvent) // Microsoft
+// {
+//   window.attachEvent('onload', loadAll);
+// }
+// else{
 	
-}
+// }
