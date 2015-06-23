@@ -2,7 +2,7 @@
 TODO : General Infos, references
 
 #Instructions
-open index.html in youre favorite browser
+open index.html in (your favorite browser) Chrome
 
 #Requirements
 your favorite browser has to be either Chrome or Mozilla

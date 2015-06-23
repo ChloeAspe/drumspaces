@@ -20,7 +20,7 @@ var allLoadedCallback = function(){console.log("allLoaded")};
 // percent loaded on current Kit
 var loadingCallBack = function(pct){ console.log(pct,loadingSamples);}
 
-var localAudioFilePath = "https://raw.githubusercontent.com/MartinHN/drumspaces/gh-pages/samples/";
+var localAudioFilePath = "samples/";
 
 
 var loadAll = function(){

@@ -74,7 +74,8 @@
 		if(taskNo===9) {
 			alert("Experiment complete! Thank you");
 		}
-		viewType=sequence[taskNo][0];
+		if(onlyTimbre2D==undefined || onlyTimbre2D == false){viewType=sequence[taskNo][0];}
+		else{viewType = 3;}
 		console.log("viewtype : "+viewType);
 		time = 0;
 		timeplaying = 0;
@@ -145,20 +146,24 @@ function addBtnHandlers() {
 		if(done===true){
 		  //SAVE SET AND GO TO NEXT TASK
 		  	var missing="";
+		  	if(onlyTimbre2D==undefined || onlyTimbre2D == false){
 			if(!selectedKick.sName) { missing+="kick "};
 			if(!selectedSnare.sName) { missing+="snare "};
 			if(!selectedOHH.sName) { missing+="open hihat "};
 			if(!selectedCHH.sName) { missing+="closed hihat "};
+}
 			if(missing!=="") {
 				alert("Please select one sample in each category. Missing the "+missing);
 			} else {
 				StopMidi();
+				if(onlyTimbre2D==undefined || onlyTimbre2D == false){
 				do {
 					qpat = prompt("How did you like this pattern? \n0=not at all, 1=OK, 2=very much", "1");
 				} while(qpat<0 || qpat>2);
 				do {
 					qres = prompt("How satisfied are you with the result? \n0=not at all, 1=OK, 2=very much", "1");
 				}while(qres<0 || qres>2);
+			}
 		  		saveData(true);
 
 		  	}
@@ -206,7 +211,7 @@ function addBtnHandlers() {
 		loadView(viewType);
 		loadDefaultMidiMap();
 		loadMidiIdx(sequence[taskNo][1]);
-		interval=setInterval(count, 1000); //set chrono
+		if(onlyTimbre2D==undefined || onlyTimbre2D == false){interval=setInterval(count, 1000);} //set chrono
 		pause=false;
 	}
 

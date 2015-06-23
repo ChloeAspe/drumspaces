@@ -1,5 +1,7 @@
 /// ----------- SAMPLEOBJECT CONSTRUCTION -----------------
 
+
+var onlyTimbre2D = !confirm("Do you want to do  :\n   -real experiment (Ok) \n   -exploring 2d timbre similarity spaces(Cancel) \n\n Then use upper right buttons: \n   -start (green) to begin\n   -done(red) to go to next pattern")
 // constructor
 function sampleObject(argName, argX, argY, argType) {
   this.sName = argName;
