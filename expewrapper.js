@@ -228,40 +228,40 @@ function addBtnHandlers() {
 	}
 
 	var insertParticipant = function() {
-		$.ajax({
-		  type: 'POST', 
-		  url: 'includes/php/insertParticipant.php', 
-		  dataType:'json',
-		  data: {
-		  	pinfo:pinfo
-		  }, 
-		  success: function(data, textStatus, jqXHR) {
-		    expResult.pid=data.participant; // save created Participant ID
-		    alert('Created participant num. '+ data.participant);
-		  },
-		  error: function(jqXHR, textStatus, errorThrown) {
-		    console.log(textStatus);
-		    alert('failed creating participant');
-		  }
-		});
+		// $.ajax({
+		//   type: 'POST', 
+		//   url: 'includes/php/insertParticipant.php', 
+		//   dataType:'json',
+		//   data: {
+		//   	pinfo:pinfo
+		//   }, 
+		//   success: function(data, textStatus, jqXHR) {
+		//     expResult.pid=data.participant; // save created Participant ID
+		//     alert('Created participant num. '+ data.participant);
+		//   },
+		//   error: function(jqXHR, textStatus, errorThrown) {
+		//     console.log(textStatus);
+		//     alert('failed creating participant');
+		//   }
+		// });
 	}
 
 	var insertTaskResult = function(taskData, participant) {
-		$.ajax({
-		  type: 'POST', 
-		  url: 'includes/php/insertTaskResult.php', 
-	  	  dataType:'json',
-		  data: {
-		    taskdata: taskData,
-		    pid: participant
-		  }, 
-		  success: function(data, textStatus, jqXHR) {
-		  },
-		  error: function(jqXHR, textStatus, errorThrown) {
-		    console.log(textStatus);
-		    alert("failed saving taskresult in database")
-		  }
-		});
+		// $.ajax({
+		//   type: 'POST', 
+		//   url: 'includes/php/insertTaskResult.php', 
+	 //  	  dataType:'json',
+		//   data: {
+		//     taskdata: taskData,
+		//     pid: participant
+		//   }, 
+		//   success: function(data, textStatus, jqXHR) {
+		//   },
+		//   error: function(jqXHR, textStatus, errorThrown) {
+		//     console.log(textStatus);
+		//     alert("failed saving taskresult in database")
+		//   }
+		// });
 	}
 
 	  
