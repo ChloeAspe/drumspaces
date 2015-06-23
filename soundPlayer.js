@@ -13,14 +13,14 @@ var useMp3 = false;
 
 var loadingSamples = {}
 
+
 // callback functions to override
 
-// all 4 sounds are loaded (kit ready to be played)
-var allLoadedCallback = function(){console.log("allLoaded")};
+
 // percent loaded on current Kit
 var loadingCallBack = function(pct){ console.log(pct,loadingSamples);}
 
-var localAudioFilePath = "https://raw.githubusercontent.com/MartinHN/drumspaces/gh-pages/samples/";
+var localAudioFilePath = "https://raw.githubusercontent.com/MartinHN/drumspaces/gh-pages/samples/";//samples/";
 
 
 var loadAll = function(){
@@ -95,7 +95,7 @@ var loadPlayer = function(){
 		   		allLoaded&= loadingSamples[key] ==100
 		   	}
 		   	if(allLoaded && size == 4){
-		   		allLoadedCallback();
+		   		loadingCallBack(100);
 		   	}
 
 		   }

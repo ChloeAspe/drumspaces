@@ -8,8 +8,15 @@ var playing=false;
 var evalResult={};
 var evaluatorID=0;
 
-function addBtnHandlers() {
-	$("#l-play-btn").click(function(){
+
+var loadingCallBack = function(pct){
+	if(pct != 100){
+		$("#l-play-btn").click(function(){
+	}	
+	);
+	}
+	else{
+		$("#l-play-btn").click(function(){
 		if(playing===false) {
 			StartMidi();
 			playing=true;
@@ -20,6 +27,13 @@ function addBtnHandlers() {
 			$(this).find("img").attr("src", "img/playicon.svg");
 		}
 	});
+	}
+console.log("loading : ",pct)
+
+}
+
+
+function addBtnHandlers() {
 
 
 	$("#form-btn").click(function() { // "START" btn (participant form)
